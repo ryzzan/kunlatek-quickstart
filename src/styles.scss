@@ -1,1 +1,84 @@
 /* You can add global styles to this file, and also import other style files */
+
+html,body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+table {
+    width: 100%;
+}
+
+mat-toolbar {
+  z-index: 998;
+  top: 0;
+  position: fixed;
+}
+
+mat-card {
+    margin-left: 1%;
+    margin-bottom: 20px;
+    width: 96%;
+}
+
+mat-form-field {
+  margin-right: 20px;
+}
+
+mat-tab {
+  padding-bottom: 5px;
+}
+
+.centralized {
+  position: inherit;
+  width: max-content;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.content-under-toolbar {
+  position: relative;
+  margin-top: 72px;
+  margin-left: 12px;
+  margin-right: 12px;
+}
+
+.flex-column {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  flex-direction: column;
+}
+
+.flex-column-break {
+  flex-basis: 100%;
+  width: 0;
+}
+
+.flex-row {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  flex-direction: row;
+}
+
+.flex-row-break {
+  flex-basis: 100%;
+  height: 0;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.text-centralized {
+  text-align: center;
+}

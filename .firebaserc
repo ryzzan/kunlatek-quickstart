@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "kunlatek-quickstart": {
+      "hosting": {
+        "kunlatek-quickstart": [
+          "kunlatek-quickstart"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "kunlatek-quickstart"
+  }
+}

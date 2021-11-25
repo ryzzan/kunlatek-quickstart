@@ -1,0 +1,6 @@
+<h1 mat-dialog-title>Deseja realmente sair?</h1>
+<div mat-dialog-content></div>
+<div mat-dialog-actions>
+    <button mat-raised-button color="warn" [mat-dialog-close]="data.isToLogout" cdkFocusInitial>CONFIRMAR</button>
+    <button mat-raised-button (click)="logoutConfirmationDialogOnNoClick()">CANCELAR</button>
+</div>
