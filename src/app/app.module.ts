@@ -14,11 +14,13 @@ import { SharedModule } from './modules/shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LogoutConfirmationDialogComponent } from './components/logout-confirmation-dialog/logout-confirmation-dialog.component';
 import { HttpClientModule } from '@angular/common/http';
+import { RemoveConfirmationDialogComponent } from './components/remove-confirmation-dialog/remove-confirmation-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LogoutConfirmationDialogComponent
+    LogoutConfirmationDialogComponent,
+    RemoveConfirmationDialogComponent
   ],
   imports: [
     BrowserModule,
