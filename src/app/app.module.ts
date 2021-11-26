@@ -15,6 +15,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LogoutConfirmationDialogComponent } from './components/logout-confirmation-dialog/logout-confirmation-dialog.component';
 import { HttpClientModule } from '@angular/common/http';
 import { RemoveConfirmationDialogComponent } from './components/remove-confirmation-dialog/remove-confirmation-dialog.component';
+import { MyErrorHandler } from './utils/error-handler';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { RemoveConfirmationDialogComponent } from './components/remove-confirmat
     BrowserAnimationsModule
   ],
   providers: [
+    MyErrorHandler,
     ScreenTrackingService,UserTrackingService,
     {
       provide: 'SocialAuthServiceConfig',
