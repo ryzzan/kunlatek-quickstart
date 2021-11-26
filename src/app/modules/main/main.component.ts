@@ -38,28 +38,34 @@ import {
       this.userType = this.userDataObject.type;
     }
   };
-  ngOnInit(): void {}
+  
+  ngOnInit(): void {};
+  
   logoutOpenDialog = (): void => {
     const logoutDialogRef = this.logoutDialog.open(LogoutConfirmationDialogComponent, {
       data: {
         isToLogout: this.isToLogout,
       }
     });
+
     logoutDialogRef.afterClosed().subscribe((res: any) => {
       if (res) this.logout();
-    })
+    });
   };
   logout = () => {
     this.authService.signOut()
     .then(res => {
       sessionStorage.clear();
+      
       this.router.navigate(['/']);
     })
     .catch(error => {
       this._snackbar.open(error, undefined, {
         duration: 4 * 1000,
-      })
+      });
+      
       sessionStorage.clear();
+      
       this.router.navigate(['/']);
     })
   };
