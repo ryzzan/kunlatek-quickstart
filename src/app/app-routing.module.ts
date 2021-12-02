@@ -16,6 +16,10 @@ const routes: Routes = [{
     loadChildren: () => import('./modules/use-condition/use-condition.module').then(m => m.UseConditionModule)
   },
   {
+    path: 'person',
+    loadChildren: () => import('./modules/person/person.module').then(m => m.PersonModule)
+  },
+  {
     path: '',
     redirectTo: 'presentation',
     pathMatch: 'full'
