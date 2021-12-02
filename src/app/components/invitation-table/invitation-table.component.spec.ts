@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PermissionFormComponent } from './permission-form.component';
+import { InvitationTableComponent } from './invitation-table.component';
 
-describe('PermissionFormComponent', () => {
-  let component: PermissionFormComponent;
-  let fixture: ComponentFixture<PermissionFormComponent>;
+describe('InvitationTableComponent', () => {
+  let component: InvitationTableComponent;
+  let fixture: ComponentFixture<InvitationTableComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PermissionFormComponent ]
+      declarations: [ InvitationTableComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PermissionFormComponent);
+    fixture = TestBed.createComponent(InvitationTableComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

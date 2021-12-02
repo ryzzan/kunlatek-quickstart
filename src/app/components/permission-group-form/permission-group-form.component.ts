@@ -16,8 +16,8 @@ import {
   MatSnackBar
 } from '@angular/material/snack-bar';
 import {
-  PermissionFormService
-} from './permission-form.service';
+  PermissionGroupFormService
+} from './permission-group-form.service';
 import {
   MyErrorHandler
 } from '../../utils/error-handler';
@@ -26,37 +26,37 @@ export interface SelectObjectInterface {
   value ? : string;
 }
 @Component({
-  selector: 'app-permission-form',
-  templateUrl: './permission-form.component.html',
-  styleUrls: ['./permission-form.component.scss']
+  selector: 'app-permission-group-form',
+  templateUrl: './permission-group-form.component.html',
+  styleUrls: ['./permission-group-form.component.scss']
 }) 
-export class PermissionFormComponent implements OnInit {
+export class PermissionGroupFormComponent implements OnInit {
     usersSelectObject: Array <SelectObjectInterface> = [];
     moduleSelectObject: Array <SelectObjectInterface> = [];
     permissionsSelectObject: Array <SelectObjectInterface> = [];
-    permissionFormId: string;
+    permissionGroupFormId: string;
     isAddModule: boolean;
-    permissionFormForm: FormGroup;
+    permissionGroupFormForm: FormGroup;
     isLoading = false;
     constructor(
         private _formBuilder: FormBuilder, 
         private _activatedRoute: ActivatedRoute, 
-        private _permissionFormService: PermissionFormService, 
+        private _permissionGroupFormService: PermissionGroupFormService, 
         private _snackbar: MatSnackBar, 
         private _errorHandler: MyErrorHandler
     ) {
-        this.permissionFormId = this._activatedRoute.snapshot.params['id'];
+        this.permissionGroupFormId = this._activatedRoute.snapshot.params['id'];
         
-        this.isAddModule = !this.permissionFormId;
+        this.isAddModule = !this.permissionGroupFormId;
         
-        this._permissionFormService.usersSelectObjectGetAll().then((array: any) => {
+        this._permissionGroupFormService.usersSelectObjectGetAll().then((array: any) => {
             for (let index = 0; index < array.length; index++) {
                 const object = array[index];
                 this.usersSelectObject.push({label: object['name'], value: object['id']});
             }
         });
         
-        this.permissionFormForm = this._formBuilder.group({
+        this.permissionGroupFormForm = this._formBuilder.group({
             name: [{
                 value: null,
                 disabled: false
@@ -70,25 +70,25 @@ export class PermissionFormComponent implements OnInit {
                 []
             ],
             users: [null, []],
-            modulesPermissions: this._formBuilder.array([]),
+            modulesPermissionGroups: this._formBuilder.array([]),
         });
     }
     ngOnInit(): void {
-        this._permissionFormService.moduleSelectObjectGetAll().then((array: any) => {
+        this._permissionGroupFormService.moduleSelectObjectGetAll().then((array: any) => {
             for (let index = 0; index < array.length; index++) {
                 const object = array[index];
                 this.moduleSelectObject.push({label: object['name'], value: object['id']});
             }
 
             this.moduleSelectObject.forEach(element => {
-                this.modulesPermissions.push(this._formBuilder.group({
+                this.modulesPermissionGroups.push(this._formBuilder.group({
                     module: [{value: element.value, disabled: true},[]],
                     permissions: [null, []],
                 }))
             });
         });
 
-        this._permissionFormService.permissionsSelectObjectGetAll().then((array: any) => 
+        this._permissionGroupFormService.permissionsSelectObjectGetAll().then((array: any) => 
         {
             for (let index = 0; index < array.length; index++) {
                 const object = array[index];
@@ -97,13 +97,13 @@ export class PermissionFormComponent implements OnInit {
         });
     }
     
-    get modulesPermissions(): FormArray {
-        return this.permissionFormForm.get('modulesPermissions') as FormArray
+    get modulesPermissionGroups(): FormArray {
+        return this.permissionGroupFormForm.get('modulesPermissionGroups') as FormArray
     };
 
-    permissionFormSubmit() {
-        this._permissionFormService
-        .save(this.permissionFormForm.value)
+    permissionGroupFormSubmit() {
+        this._permissionGroupFormService
+        .save(this.permissionGroupFormForm.value)
         .then((res) => {
             this.isLoading = false;
         }).catch((err) => {

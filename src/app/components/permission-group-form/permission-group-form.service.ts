@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 @Injectable({
   providedIn: 'root',
-}) export class PermissionFormService {
+}) export class PermissionGroupFormService {
   BASE_URL = 'http://localhost:3000';
   constructor(private _httpClient: HttpClient) {}
   usersSelectObjectGetAll() {

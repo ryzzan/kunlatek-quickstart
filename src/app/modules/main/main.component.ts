@@ -29,6 +29,11 @@ import {
     title: 'Permissões',
     icon: 'dashboard',
     itens: [],
+  }, {
+    router: '/main/invitation',
+    title: 'Convites',
+    icon: 'dashboard',
+    itens: [],
   }];
   isMenuOpened = true;
   isToLogout: boolean = true;

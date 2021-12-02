@@ -1,9 +1,9 @@
 <mat-card>
   <mat-card-header>
-    <mat-card-title>ACL</mat-card-title>
+    <mat-card-title>Grupo de permissão</mat-card-title>
   </mat-card-header>
   <mat-card-content>
-    <form id="permissionForm" [formGroup]="permissionFormForm" (ngSubmit)="permissionFormSubmit()">
+    <form id="permissionGroupForm" [formGroup]="permissionGroupFormForm" (ngSubmit)="permissionGroupFormSubmit()">
       <mat-form-field>
         <mat-label>Nome</mat-label><input matInput type="text" formControlName="name" placeholder="Nome do grupo"
           required autocomplete="new-password">
@@ -19,7 +19,7 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
-      <ng-container formArrayName="modulesPermissions">
+      <ng-container formArrayName="modulesPermissionGroups">
         <mat-list *ngFor="let moduleItem of moduleSelectObject; index as i">
             <ng-container [formGroupName]="i">
               <mat-list-item> Permissões de módulo {{moduleItem.label}} </mat-list-item>
@@ -42,38 +42,6 @@
           </mat-list>
           
       </ng-container>
-      <!-- <div>
-        <ng-container formArrayName="modulesPermissions">
-          <mat-list *ngFor="let _modulesPermissions of modulesPermissions.controls; index as i">
-            <ng-container [formGroupName]="i">
-              <mat-list-item> Permissões de módulos {{1 + i}} </mat-list-item>
-              <div>
-                <mat-form-field>
-                  <mat-label>Módulo</mat-label>
-                  <mat-select formControlName="module" multiple>
-                    <mat-option *ngFor="let moduleItem of moduleSelectObject" [value]="moduleItem.value">
-                      {{moduleItem.label}}</mat-option>
-                  </mat-select>
-                </mat-form-field>
-                <mat-form-field>
-                  <mat-label>Permissões</mat-label>
-                  <mat-select formControlName="permissions" multiple>
-                    <mat-option *ngFor="let permissionsItem of permissionsSelectObject" [value]="permissionsItem.value">
-                      {{permissionsItem.label}}</mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </div>
-              <div> <button mat-button type="button" color="warn" (click)="removeModulesPermissions(i)"> Remover
-                  permissões de módulos </button> </div>
-            </ng-container>
-            <mat-divider></mat-divider>
-          </mat-list>
-        </ng-container>
-      </div> -->
-      <!-- <div style="margin: 10px 0;"> <button mat-raised-button type="button" (click)=addModulesPermissions()> Adicionar
-          permissões de módulos </button>
-        <mat-divider></mat-divider>
-      </div> -->
       <mat-card-actions><button mat-raised-button color="primary">{{isAddModule?'Criar' : 'Editar'}}</button>
       </mat-card-actions>
     </form>

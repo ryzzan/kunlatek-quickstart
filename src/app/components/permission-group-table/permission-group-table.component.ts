@@ -19,22 +19,33 @@ import {
   ActivatedRoute
 } from '@angular/router';
 import {
-  PermissionTableService
-} from './permission-table.service';
+  PermissionGroupTableService
+} from './permission-group-table.service';
 import {
   MatSnackBar
 } from '@angular/material/snack-bar';
 @Component({
-  selector: 'app-permission-table',
-  templateUrl: './permission-table.component.html',
-  styleUrls: ['./permission-table.component.scss']
-}) export class PermissionTableComponent implements OnInit {
-  permissionTableForm: FormGroup;permissionTableDisplayedColumns: string[] = ['name', 'users', 'permissions', 'undefined', ];permissionTableDataSource: any = [];isLoading = true;constructor(private _formBuilder: FormBuilder, private _errorHandler: MyErrorHandler, private _dialog: MatDialog, private _permissionTableService: PermissionTableService, private _snackbar: MatSnackBar) {
-    this.permissionTableForm = this._formBuilder.group({
+  selector: 'app-permission-group-table',
+  templateUrl: './permission-group-table.component.html',
+  styleUrls: ['./permission-group-table.component.scss']
+}) 
+export class PermissionGroupTableComponent implements OnInit {
+  permissionGroupTableForm: FormGroup;
+  permissionGroupTableDisplayedColumns: string[] = ['name', 'users', 'permissions', 'undefined',];
+  permissionGroupTableDataSource: any = [];
+  isLoading = true;
+  constructor(
+    private _formBuilder: FormBuilder, 
+    private _errorHandler: MyErrorHandler, 
+    private _dialog: MatDialog, 
+    private _permissionGroupTableService: PermissionGroupTableService, 
+    private _snackbar: MatSnackBar
+  ) {
+    this.permissionGroupTableForm = this._formBuilder.group({
       searchInput: [null, []],
     });
-    this._permissionTableService.getAll().then((result) => {
-      this.permissionTableDataSource = result;
+    this._permissionGroupTableService.getAll().then((result) => {
+      this.permissionGroupTableDataSource = result;
       this.isLoading = false;
     }).catch(err => {
       this.isLoading = false;
@@ -47,8 +58,8 @@ import {
   ngOnInit(): void {}
   removeConfirmationDialogOpenDialog = () => {
     const removeConfirmationDialogDialogRef = this._dialog.open(RemoveConfirmationDialogComponent, {})
-  };permissionTableSubmit() {
-    this._permissionTableService.find(this.permissionTableForm.value).then((res) => {
+  };permissionGroupTableSubmit() {
+    this._permissionGroupTableService.find(this.permissionGroupTableForm.value).then((res) => {
       this.isLoading = false;
     }).catch((err) => {
       this.isLoading = false;

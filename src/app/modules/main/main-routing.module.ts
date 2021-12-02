@@ -15,7 +15,11 @@ const routes: Routes = [{
   children: [
     {
       path: 'permission',
-      loadChildren: () => import('../permission/permission.module').then(m => m.PermissionModule)
+      loadChildren: () => import('../permission-group/permission-group.module').then(m => m.PermissionGroupModule)
+    },
+    {
+      path: 'invitation',
+      loadChildren: () => import('../invitation/invitation.module').then(m => m.InvitationModule)
     }
   ]
 }];

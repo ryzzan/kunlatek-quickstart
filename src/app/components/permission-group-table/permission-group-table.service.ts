@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 @Injectable({
   providedIn: 'root',
-}) export class PermissionTableService {
+}) export class PermissionGroupTableService {
   BASE_URL = 'http://localhost:3000';
   constructor(private _httpClient: HttpClient) {}
   getAll() {
