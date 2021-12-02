@@ -29,8 +29,7 @@ export class AuthService {
         'Authorization': `Bearer ${sessionStorage.getItem('authToken')}`
       }
     }).toPromise();
-
-    console.log(res, 33);
+    
     return res;
   }
 

@@ -24,6 +24,11 @@ import {
     title: 'Página inicial',
     icon: 'dashboard',
     itens: [],
+  }, {
+    router: '/main/permission',
+    title: 'Permissões',
+    icon: 'dashboard',
+    itens: [],
   }];
   isMenuOpened = true;
   isToLogout: boolean = true;

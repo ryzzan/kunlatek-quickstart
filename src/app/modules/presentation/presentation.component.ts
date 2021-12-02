@@ -43,6 +43,7 @@ export class PresentationComponent implements OnInit {
     .then(res => {
       this.authService.authState.subscribe((user) => {
         this.user = user;
+        
         this.loggedIn = (this.user != null);
         for (const key in this.user) {
           if (Object.prototype.hasOwnProperty.call(this.user, key)) {
@@ -60,8 +61,6 @@ export class PresentationComponent implements OnInit {
               sessionStorage.setItem('isAuthorized', 'true');
               this.router.navigate(['/main']);
             }
-            console.log(array);
-            console.log(sessionStorage);
           })
           .catch(error => {
             this._snackbar.open(error, undefined, {
@@ -72,7 +71,7 @@ export class PresentationComponent implements OnInit {
 
       });
     })
-    .catch(error => { console.log(error, 63);
+    .catch(error => {
       if (
         error.error !== 'popup_closed_by_user'
       ) {
@@ -80,8 +79,6 @@ export class PresentationComponent implements OnInit {
           duration: 4 * 1000,
         });
       }
-
-      console.log(error);
     })
   }
 

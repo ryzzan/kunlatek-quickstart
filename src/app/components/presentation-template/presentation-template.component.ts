@@ -58,8 +58,6 @@ export class PresentationTemplateComponent implements OnInit {
       this._snackbar.open(error, undefined, {
         duration: 4 * 1000,
       });
-
-      console.log(error);
     })
   }
 
