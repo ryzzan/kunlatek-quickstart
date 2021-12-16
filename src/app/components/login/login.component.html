@@ -1,0 +1,30 @@
+<mat-card class="centralized">
+  <mat-card-header>
+    <div mat-card-avatar>
+      <img src="../../../assets/images/logos/main_logo.png" alt="Main logo" height="48px">
+    </div>
+    <mat-card-title style="font-size: 20px;">
+      Projeto
+    </mat-card-title>
+    
+    <mat-card-subtitle>
+      Autenticação no sistema.
+    </mat-card-subtitle>
+  </mat-card-header>
+  
+  <div>
+    <div style="display: flex;">
+      <button mat-raised-button (click)="signInWithGoogle()" style="width: 200px; margin-left: auto; margin-right: auto;">
+        <img src="../../../assets/images/logos/google.svg.png" alt="Google logo" height="24px" style="margin-right: 8px;">
+        Entrar com Google 
+      </button>
+    </div>
+  
+    <div style="display: flex;">
+      <button mat-raised-button (click)="signInWithGoogle()" style="width: 200px; margin-top: 8px; margin-left: auto; margin-right: auto;">
+        <img src="../../../assets/images/logos/apple.svg" alt="Apple logo" height="24px" style="margin-right: 8px;">
+        Entrar com Apple 
+      </button>
+    </div>
+  </div>
+</mat-card>

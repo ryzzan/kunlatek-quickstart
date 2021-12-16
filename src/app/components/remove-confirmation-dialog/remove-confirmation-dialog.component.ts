@@ -23,7 +23,7 @@ export interface RemoveConfirmationDialogDialogData {
 @Component({
   selector: 'app-remove-confirmation-dialog',
   templateUrl: './remove-confirmation-dialog.component.html',
-  styleUrls: ['./remove-confirmation-dialog.component.sass']
+  styleUrls: ['./remove-confirmation-dialog.component.scss']
 }) export class RemoveConfirmationDialogComponent {
   id: string = this.removeConfirmationDialogRoute.snapshot.params['id'];
   isAddModule: boolean = !this.id;

@@ -1,0 +1,75 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Empresa</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-stepper orientation="vertical" linear #stepper>
+      <mat-step [stepControl]="mainDataForm">
+        <ng-template matStepLabel>Dados principais</ng-template>
+        <form [formGroup]="mainDataForm">
+          <ng-template matStepContent>
+            <mat-form-field>
+              <mat-label>CNPJ</mat-label><input matInput type="text" formControlName="uniqueId"
+                placeholder="CNPJ da sua empresa" required autocomplete="new-password" mask="00.000.000/0000-00">
+            </mat-form-field>
+            <button mat-raised-button (click)="uniqueIdCheck()">
+                <mat-icon>search</mat-icon>
+                Pesquisar
+            </button>
+            <mat-form-field>
+              <mat-label>Razão social</mat-label><input matInput type="text" formControlName="companyName"
+                placeholder="Nome jurídico da empresa" required autocomplete="new-password">
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Nome fantasia</mat-label><input matInput type="text" formControlName="businessName"
+                placeholder="Nome comercial da empresa" required autocomplete="new-password">
+            </mat-form-field>
+          </ng-template>
+        </form>
+      </mat-step>
+
+      <mat-step [optional]="isOptional" [stepControl]="mobileForm">
+        <ng-template matStepLabel>Contato e segurança</ng-template>
+        <form [formGroup]="mobileForm">
+          <ng-template matStepContent>
+            <mat-form-field>
+              <mat-label>Celular</mat-label><input matInput type="text" formControlName="phone"
+                placeholder="Seu celular disponível" required autocomplete="new-password" mask="(00) 00000-0000">
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Código</mat-label>
+              <input matInput type="text" formControlName="smsCode" placeholder="Código enviado para seu celular"
+                required autocomplete="new-password">
+            </mat-form-field>
+            <button mat-raised-button (click)="smsCodeCheck()">Validar código</button>
+            <div>
+                <button mat-raised-button matStepperPrevious>
+                    <mat-icon>navigate_before</mat-icon>
+                    Anterior
+                </button>
+                <button mat-raised-button matStepperNext>
+                    <mat-icon>navigate_next</mat-icon>
+                    Próximo
+                </button>
+            </div>
+          </ng-template>
+        </form>
+      </mat-step>
+
+      <mat-step>
+        <ng-template matStepLabel>Sucesso</ng-template>
+        <div>
+          <p>
+            \o/ Agora é só clicar em "Criar" e vir com a gente!
+          </p>
+        </div>
+        <mat-card-actions>
+            <button mat-raised-button color="primary" (click)="companyFormSubmit()">
+                <mat-icon>save</mat-icon>
+                {{isAddModule?'Criar' : 'Editar'}}
+            </button>
+        </mat-card-actions>
+      </mat-step>
+    </mat-stepper>
+  </mat-card-content>
+</mat-card>

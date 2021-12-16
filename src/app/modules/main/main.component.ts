@@ -8,6 +8,7 @@ import {
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { SocialAuthService } from 'angularx-social-login';
+import { AuthService } from 'src/app/components/login/auth.service';
 import {
   LogoutConfirmationDialogComponent
 } from 'src/app/components/logout-confirmation-dialog/logout-confirmation-dialog.component';
@@ -20,7 +21,7 @@ import {
   userDataObject;
   userType;
   menu = [{
-    router: '/main/dashboard',
+    router: '/main',
     title: 'Página inicial',
     icon: 'dashboard',
     itens: [],
@@ -38,10 +39,10 @@ import {
   isMenuOpened = true;
   isToLogout: boolean = true;
   constructor(
-    private authService: SocialAuthService,
     private logoutDialog: MatDialog,
     private router: Router,
-    private _snackbar: MatSnackBar
+    private _snackbar: MatSnackBar,
+    private _auth: AuthService
   ) {
     if (this.userData) {
       this.userDataObject = JSON.parse(this.userData);
@@ -62,21 +63,16 @@ import {
       if (res) this.logout();
     });
   };
+
   logout = () => {
-    this.authService.signOut()
+    this._auth.signOut()
     .then(res => {
-      sessionStorage.clear();
-      
       this.router.navigate(['/']);
     })
     .catch(error => {
       this._snackbar.open(error, undefined, {
         duration: 4 * 1000,
       });
-      
-      sessionStorage.clear();
-      
-      this.router.navigate(['/']);
     })
   };
 }

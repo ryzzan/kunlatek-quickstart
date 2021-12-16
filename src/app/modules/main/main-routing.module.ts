@@ -22,6 +22,10 @@ const routes: Routes = [{
       loadChildren: () => import('../invitation/invitation.module').then(m => m.InvitationModule)
     }
   ]
+},
+{
+  path: '**',
+  redirectTo: ''
 }];
 
 @NgModule({

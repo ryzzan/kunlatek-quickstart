@@ -31,35 +31,35 @@ import {
     }).toPromise();
   }
   getAll() {
-    return this._httpClient.get(`${this.BASE_URL}/permissions`, {
+    return this._httpClient.get(`${this.BASE_URL}/acl`, {
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`
       }
     }).toPromise();
   };
   delete(id: string) {
-    return this._httpClient.delete(`${this.BASE_URL}/permissions/${id}`, {
+    return this._httpClient.delete(`${this.BASE_URL}/acl/${id}`, {
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`
       }
     }).toPromise();
   };
   save(body: any) {
-    return this._httpClient.post(`${this.BASE_URL}/permissions`, body, {
+    return this._httpClient.post(`${this.BASE_URL}/acl`, body, {
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`
       }
     }).toPromise();
   };
   update(body: any, id: string) {
-    return this._httpClient.put(`${this.BASE_URL}/permissions/${id}`, body, {
+    return this._httpClient.put(`${this.BASE_URL}/acl/${id}`, body, {
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`
       }
     }).toPromise();
   };
   find(id: string) {
-    return this._httpClient.get(`${this.BASE_URL}/permissions/${id}`, {
+    return this._httpClient.get(`${this.BASE_URL}/acl/${id}`, {
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`
       }

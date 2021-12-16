@@ -42,7 +42,11 @@
           </mat-list>
           
       </ng-container>
-      <mat-card-actions><button mat-raised-button color="primary">{{isAddModule?'Criar' : 'Editar'}}</button>
+      <mat-card-actions>
+        <button mat-raised-button color="primary">
+          <mat-icon>save</mat-icon>
+          {{isAddModule?'Criar' : 'Editar'}}
+        </button>
       </mat-card-actions>
     </form>
   </mat-card-content>

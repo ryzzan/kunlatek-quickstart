@@ -16,6 +16,10 @@ table {
     width: 100%;
 }
 
+button.mat-raised-button {
+  margin-right: 18px;
+}
+
 mat-toolbar {
   z-index: 998;
   top: 0;

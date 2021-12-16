@@ -26,7 +26,8 @@ export interface SelectObjectInterface {
   selector: 'app-person-form',
   templateUrl: './person-form.component.html',
   styleUrls: ['./person-form.component.scss']
-}) export class PersonFormComponent implements OnInit {
+}) 
+export class PersonFormComponent implements OnInit {
   genderSelectObject = [{
     "label": "Feminino",
     "value": "female"
@@ -36,12 +37,21 @@ export interface SelectObjectInterface {
   }];
   personFormId: string;
   isAddModule: boolean;
-  personFormForm: FormGroup;
+  mainDataForm: FormGroup;
+  mobileForm: FormGroup;
   isLoading = false;
-  constructor(private _formBuilder: FormBuilder, private _activatedRoute: ActivatedRoute, private _personFormService: PersonFormService, private _snackbar: MatSnackBar, private _errorHandler: MyErrorHandler) {
+  isOptional = false;
+  
+  constructor(
+    private _formBuilder: FormBuilder, 
+    private _activatedRoute: ActivatedRoute, 
+    private _personFormService: PersonFormService, 
+    private _snackbar: MatSnackBar, 
+    private _errorHandler: MyErrorHandler
+  ) {
     this.personFormId = this._activatedRoute.snapshot.params['id'];
     this.isAddModule = !this.personFormId;
-    this.personFormForm = this._formBuilder.group({
+    this.mainDataForm = this._formBuilder.group({
       uniqueId: [{
           value: null,
           disabled: false
@@ -66,6 +76,9 @@ export interface SelectObjectInterface {
         },
         []
       ],
+    });
+
+    this.mobileForm = this._formBuilder.group({
       phone: [{
           value: null,
           disabled: false
@@ -77,12 +90,25 @@ export interface SelectObjectInterface {
           disabled: false
         },
         []
-      ],
+      ]
     });
   }
+
   ngOnInit(): void {}
+
+  uniqueIdCheck = () => {
+
+  }
+
+  smsCodeCheck = () => {
+    
+  }
+  
   personFormSubmit() {
-    this._personFormService.save(this.personFormForm.value).then((res) => {
+    const merged = {...this.mainDataForm.value, ...this.mobileForm.value};
+
+    this._personFormService
+    .save(merged).then((res) => {
       this.isLoading = false;
     }).catch((err) => {
       this.isLoading = false;

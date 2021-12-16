@@ -5,9 +5,15 @@ import {
   RouterModule,
   Routes
 } from '@angular/router';
+import { LoginComponent } from './components/login/login.component';
 import { AuthenticationGuard } from './guards/authentication.guard';
 
-const routes: Routes = [{
+const routes: Routes = [
+  {
+    path: 'login',
+    component: LoginComponent
+  },
+  {
     path: 'privacy-notice',
     loadChildren: () => import('./modules/privacy-notice/privacy-notice.module').then(m => m.PrivacyNoticeModule)
   },
@@ -20,22 +26,27 @@ const routes: Routes = [{
     loadChildren: () => import('./modules/person/person.module').then(m => m.PersonModule)
   },
   {
-    path: '',
-    redirectTo: 'presentation',
-    pathMatch: 'full'
-  },
-  {
-    path: 'presentation',
-    // canActivate: [AuthenticationGuard],
-    loadChildren: () => import('./modules/presentation/presentation.module').then(m => m.PresentationModule)
+    path: 'company',
+    loadChildren: () => import('./modules/company/company.module').then(m => m.CompanyModule)
   },
   {
     path: 'main',
+    canActivate: [AuthenticationGuard],
     loadChildren: () => import('./modules/main/main.module').then(m => m.MainModule)
   },
   {
+    path: '',
+    redirectTo: 'login',
+    pathMatch: 'full'
+  },
+  {
+    path: ':id',
+    // canActivate: [AuthenticationGuard],
+    component: LoginComponent
+  },
+  {
     path: '**',
-    redirectTo: 'presentation'
+    redirectTo: 'login'
   },
 ];
 

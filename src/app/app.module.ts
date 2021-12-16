@@ -16,10 +16,12 @@ import { LogoutConfirmationDialogComponent } from './components/logout-confirmat
 import { HttpClientModule } from '@angular/common/http';
 import { RemoveConfirmationDialogComponent } from './components/remove-confirmation-dialog/remove-confirmation-dialog.component';
 import { MyErrorHandler } from './utils/error-handler';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    LoginComponent,
     LogoutConfirmationDialogComponent,
     RemoveConfirmationDialogComponent
   ],
