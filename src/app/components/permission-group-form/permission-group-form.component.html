@@ -25,7 +25,7 @@
               <mat-list-item> Permissões de módulo {{moduleItem.label}} </mat-list-item>
               <div>
                 <mat-form-field>
-                  <mat-label>Módulo</mat-label>
+                  <mat-label>Módulo {{moduleItem.label}}</mat-label>
                   <input matInput type="text" formControlName="module" placeholder="Nome do módulo"
                     required autocomplete="new-password" [disabled]="true">
                 </mat-form-field>

@@ -52,7 +52,7 @@ export class PermissionGroupFormComponent implements OnInit {
         this._permissionGroupFormService.usersSelectObjectGetAll().then((array: any) => {
             for (let index = 0; index < array.length; index++) {
                 const object = array[index];
-                this.usersSelectObject.push({label: object['name'], value: object['id']});
+                this.usersSelectObject.push({label: object['name'], value: object['_id']});
             }
         });
         
@@ -75,12 +75,14 @@ export class PermissionGroupFormComponent implements OnInit {
     }
     ngOnInit(): void {
         this._permissionGroupFormService.moduleSelectObjectGetAll().then((array: any) => {
+            console.log(array);
             for (let index = 0; index < array.length; index++) {
                 const object = array[index];
-                this.moduleSelectObject.push({label: object['name'], value: object['id']});
+                this.moduleSelectObject.push({label: object['name'], value: object['_id']});
             }
 
             this.moduleSelectObject.forEach(element => {
+                console.log(element);
                 this.modulesPermissionGroups.push(this._formBuilder.group({
                     module: [{value: element.value, disabled: true},[]],
                     permissions: [null, []],
@@ -92,7 +94,7 @@ export class PermissionGroupFormComponent implements OnInit {
         {
             for (let index = 0; index < array.length; index++) {
                 const object = array[index];
-                this.permissionsSelectObject.push({label: object['name'], value: object['id']});
+                this.permissionsSelectObject.push({label: object['name'], value: object['_id']});
             }
         });
     }
