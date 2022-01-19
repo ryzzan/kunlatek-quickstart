@@ -7,7 +7,7 @@ import {
   FormGroup
 } from '@angular/forms';
 import {
-  ActivatedRoute
+  ActivatedRoute, Router
 } from '@angular/router';
 import {
   MatSnackBar
@@ -43,6 +43,7 @@ export class PersonFormComponent implements OnInit {
   isOptional = false;
   
   constructor(
+    private router: Router,
     private _formBuilder: FormBuilder, 
     private _activatedRoute: ActivatedRoute, 
     private _personFormService: PersonFormService, 
@@ -64,6 +65,7 @@ export class PersonFormComponent implements OnInit {
         },
         []
       ],
+      country: 'br',
       name: [{
           value: null,
           disabled: true
@@ -97,7 +99,28 @@ export class PersonFormComponent implements OnInit {
   ngOnInit(): void {}
 
   uniqueIdCheck = () => {
-
+    const timestamp = this.addHours(new Date(this.mainDataForm.value.birthday), 5);
+    this.mainDataForm.value.birthday = new Date(timestamp);
+    
+    this._personFormService
+    .save(this.mainDataForm.value).then((res) => {
+      this.isLoading = false;
+    }).catch((err) => {
+      this.isLoading = false;
+      
+      if (err.error.error.message) {
+        switch (err.error.error.message) {
+          case 'jwt expired':
+            this.setErrorMessage(err.error.error.message);
+            this.router.navigate(['/login']);
+            break;
+        
+          default:
+            this.setErrorMessage(err.error.error.message);
+            break;
+        }
+      }
+    })
   }
 
   smsCodeCheck = () => {
@@ -105,17 +128,37 @@ export class PersonFormComponent implements OnInit {
   }
   
   personFormSubmit() {
-    const merged = {...this.mainDataForm.value, ...this.mobileForm.value};
-
+    // const merged = {...this.mainDataForm.value, ...this.mobileForm.value};
     this._personFormService
-    .save(merged).then((res) => {
+    .save(this.mainDataForm.value).then((res) => {
       this.isLoading = false;
     }).catch((err) => {
       this.isLoading = false;
-      const message = this._errorHandler.apiErrorMessage(err.error.error.message);
-      this._snackbar.open(message, undefined, {
-        duration: 4 * 1000,
-      });
+
+      if (err.error.error.message) {
+        switch (err.error.error.message) {
+          case 'jwt expired':
+            this.setErrorMessage(err.error.error.message);
+            this.router.navigate(['/login']);
+            break;
+        
+          default:
+            this.setErrorMessage(err.error.error.message);
+            break;
+        }
+      }
     })
+  }
+
+  setErrorMessage = (errorMessage: string) => {
+    const message = this._errorHandler.apiErrorMessage(errorMessage);
+    this._snackbar.open(message, undefined, {
+      duration: 4 * 1000,
+    });
+  }
+
+  addHours = (date: Date, hours: number) => {
+    const timestamp = date.setHours(date.getHours()+hours);
+    return timestamp;
   }
 }

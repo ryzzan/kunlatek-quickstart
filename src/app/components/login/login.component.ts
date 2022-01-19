@@ -1,84 +1,89 @@
 import {
   Component
 } from '@angular/core';
-import { AuthService, SocialMedia } from './auth.service';
+import { AuthService } from './auth.service';
 
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { MyErrorHandler } from '../../utils/error-handler';
-import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthService } from 'angularx-social-login';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
+
+import { UserInterface } from '../../interfaces/autentikigo';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
-}) 
+})
 
 export class LoginComponent {
   user?: any;
   loggedIn = false;
+  load = false;
 
   constructor(
-    private authService: SocialAuthService, 
     private router: Router,
     private route: ActivatedRoute,
     private _snackbar: MatSnackBar,
     private _auth: AuthService,
-    private _errorHandler: MyErrorHandler
-
+    private _errorHandler: MyErrorHandler,
   ) {}
 
   ngOnInit(): void {
-    if (this.route.snapshot.params['id']) {
-      this._auth.setAuthenticationToken(this.route.snapshot.params['id'])
+    this._auth.signOut();
+    
+    const params = this.route.snapshot.queryParams;
+
+    if (params['token']) {
+      const token = params['token'];
+      this._auth.getUserData(token)
       .then((res: any) => {
-        if (res?.token) {
-          this._auth.getUserData(res.token)
-          .then((userRes: any) => {
-            if (userRes.uniqueId) {
-              for (const key in userRes) {
-                if (Object.prototype.hasOwnProperty.call(userRes, key)) {
-                  const element = userRes[key];
-                  sessionStorage.setItem(key, element);
-                }
-              }
-              sessionStorage.setItem('token', res.token);
-              sessionStorage.setItem('refreshToken', res.refreshToken);
-              this.router.navigate(['/main']);
-            }
-          })
-          .catch(userError => {
-            const message = this._errorHandler.apiErrorMessage(userError.error.error.message);
-            this._snackbar.open(message, undefined, {
-              duration: 4 * 1000,
-            });
-          });
+        if (res.userId) {
+          this.setSessionStorage(res);
+          this.router.navigate(['/main']);
         }
       })
-      .catch(error => console.log(error))
-    }
-
-    if (sessionStorage.getItem('email')) {
-      this.loggedIn = true;
-      this.router.navigate(['/main']);
-    }
-
-    if (!sessionStorage.getItem('email')) {
-      this.authService.authState.subscribe((user) => {
-        this.user = user;
-        this.loggedIn = (this.user != null);
-        for (const key in this.user) {
-          if (Object.prototype.hasOwnProperty.call(this.user, key)) {
-            sessionStorage.setItem(key, this.user[key]);
+      .catch(err => {
+        if (err.error.error.message) {
+          switch (err.error.error.message) {
+            case 'User not registered':
+              sessionStorage.setItem('tokenToRegister', token);
+              this.router.navigate(['/person']);
+              break;
+          
+            default:
+              this.setErrorMessage(err.error.error.message);
+              break;
           }
         }
       });
+    }
+
+    if (sessionStorage.getItem('userId')) {
+      this.router.navigate(['/main']);      
     }
   }
 
   signInWithGoogle = () => {
     window.location.replace(`http://localhost:3000/auth/google-signin?projectId=${environment.projectId}`);
+  }
+
+  setSessionStorage = (userData: UserInterface) => {
+    sessionStorage.setItem('birthday', userData.personInfo.birthday);
+    sessionStorage.setItem('country', userData.personInfo.country);
+    sessionStorage.setItem('gender', userData.personInfo.gender);
+    sessionStorage.setItem('mother', userData.personInfo.mother);
+    sessionStorage.setItem('name', userData.personInfo.name);
+    sessionStorage.setItem('uniqueId', userData.personInfo.uniqueId);
+    sessionStorage.setItem('_id', userData.personInfo._id);
+    sessionStorage.setItem('userId', userData.userId);
+  }
+
+  setErrorMessage = (errorMessage: string) => {
+    const message = this._errorHandler.apiErrorMessage(errorMessage);
+    this._snackbar.open(message, undefined, {
+      duration: 4 * 1000,
+    });
   }
 }
