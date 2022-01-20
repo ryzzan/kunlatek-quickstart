@@ -10,6 +10,10 @@ import { AuthenticationGuard } from './guards/authentication.guard';
 
 const routes: Routes = [
   {
+    path: 'signup',
+    loadChildren: () => import('./modules/signup/signup.module').then(m => m.SignupModule)
+  },
+  {
     path: 'login',
     component: LoginComponent
   },

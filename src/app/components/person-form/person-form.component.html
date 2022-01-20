@@ -18,7 +18,7 @@
                         <input matInput type="date" formControlName="birthday"
                         placeholder="Sua data de nascimento" required autocomplete="new-password">
                     </mat-form-field>
-                    <button mat-raised-button (click)="uniqueIdCheck()">
+                    <!-- <button mat-raised-button (click)="uniqueIdCheck()">
                         <mat-icon>search</mat-icon>
                         Pesquisar
                     </button>
@@ -36,12 +36,18 @@
                     </mat-form-field>
                     <div>
                         <button mat-raised-button matStepperNext>Próximo</button>
-                    </div>
+                    </div> -->
+                    <mat-card-actions>
+                        <button mat-raised-button color="primary" (click)="personFormSubmit()">
+                            <mat-icon>save</mat-icon>
+                            {{isAddModule?'Criar' : 'Editar'}}
+                        </button>
+                    </mat-card-actions>
                 </ng-template>
             </form>
         </mat-step>
 
-        <mat-step [optional]="isOptional" [stepControl]="mobileForm">
+        <!-- <mat-step [optional]="isOptional" [stepControl]="mobileForm">
             <ng-template matStepLabel>Contato e segurança</ng-template>
             <form [formGroup]="mobileForm">
                 <ng-template matStepContent>
@@ -76,7 +82,7 @@
                     {{isAddModule?'Criar' : 'Editar'}}
                 </button>
             </mat-card-actions>
-        </mat-step>
+        </mat-step> -->
     </mat-stepper>
   </mat-card-content>
 </mat-card>

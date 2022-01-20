@@ -12,13 +12,13 @@
         <mat-label>Descrição</mat-label><input matInput type="text" formControlName="description"
           placeholder="Descrição do grupo" required autocomplete="new-password">
       </mat-form-field>
-      <mat-form-field>
+      <!-- <mat-form-field>
         <mat-label>Usuários relacionados</mat-label>
         <mat-select formControlName="users">
           <mat-option *ngFor="let usersItem of usersSelectObject" [value]="usersItem.value"> {{usersItem.label}}
           </mat-option>
         </mat-select>
-      </mat-form-field>
+      </mat-form-field> -->
       <ng-container formArrayName="modulesPermissionGroups">
         <mat-list *ngFor="let moduleItem of moduleSelectObject; index as i">
             <ng-container [formGroupName]="i">
@@ -27,7 +27,7 @@
                 <mat-form-field>
                   <mat-label>Módulo {{moduleItem.label}}</mat-label>
                   <input matInput type="text" formControlName="module" placeholder="Nome do módulo"
-                    required autocomplete="new-password" [disabled]="true">
+                    required autocomplete="new-password">
                 </mat-form-field>
                 <mat-form-field>
                   <mat-label>Permissões</mat-label>

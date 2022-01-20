@@ -20,6 +20,14 @@
     PermissionGroupTableComponent
   } from 'src/app/components/permission-group-table/permission-group-table.component';
   @NgModule({
-    declarations: [PermissionGroupComponent, PermissionGroupFormComponent, PermissionGroupTableComponent, ],
-    imports: [CommonModule, PermissionGroupRoutingModule, SharedModule]
+    declarations: [
+      PermissionGroupComponent, 
+      PermissionGroupFormComponent, 
+      PermissionGroupTableComponent, 
+    ],
+    imports: [
+      CommonModule, 
+      PermissionGroupRoutingModule, 
+      SharedModule
+    ]
   }) export class PermissionGroupModule {}

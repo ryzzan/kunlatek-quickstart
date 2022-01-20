@@ -17,11 +17,11 @@ import {
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss']
 }) export class MainComponent implements OnInit {
-  userData = localStorage.getItem('user_data');
+  userData = sessionStorage.getItem('user_data');
   userDataObject;
   userType;
   menu = [{
-    router: '/main',
+    router: '/main/dashboard',
     title: 'Página inicial',
     icon: 'dashboard',
     itens: [],

@@ -32,14 +32,16 @@ export class LoginComponent {
 
   ngOnInit(): void {
     this._auth.signOut();
-    
+
     const params = this.route.snapshot.queryParams;
 
     if (params['token']) {
       const token = params['token'];
+      
       this._auth.getUserData(token)
       .then((res: any) => {
         if (res.userId) {
+          sessionStorage.setItem('token', token);
           this.setSessionStorage(res);
           this.router.navigate(['/main']);
         }
@@ -49,7 +51,7 @@ export class LoginComponent {
           switch (err.error.error.message) {
             case 'User not registered':
               sessionStorage.setItem('tokenToRegister', token);
-              this.router.navigate(['/person']);
+              this.router.navigate(['/signup']);
               break;
           
             default:
@@ -70,14 +72,28 @@ export class LoginComponent {
   }
 
   setSessionStorage = (userData: UserInterface) => {
-    sessionStorage.setItem('birthday', userData.personInfo.birthday);
-    sessionStorage.setItem('country', userData.personInfo.country);
-    sessionStorage.setItem('gender', userData.personInfo.gender);
-    sessionStorage.setItem('mother', userData.personInfo.mother);
-    sessionStorage.setItem('name', userData.personInfo.name);
-    sessionStorage.setItem('uniqueId', userData.personInfo.uniqueId);
-    sessionStorage.setItem('_id', userData.personInfo._id);
-    sessionStorage.setItem('userId', userData.userId);
+    if (userData.personInfo) {
+      sessionStorage.setItem('birthday', userData.personInfo.birthday);
+      sessionStorage.setItem('country', userData.personInfo.country);
+      sessionStorage.setItem('gender', userData.personInfo.gender);
+      sessionStorage.setItem('mother', userData.personInfo.mother);
+      sessionStorage.setItem('name', userData.personInfo.name);
+      sessionStorage.setItem('uniqueId', userData.personInfo.uniqueId);
+      sessionStorage.setItem('_id', userData.personInfo._id);
+      sessionStorage.setItem('userId', userData.userId);
+    }
+
+    if (userData.companyInfo) {
+      sessionStorage.setItem('birthday', userData.companyInfo.birthday);
+      sessionStorage.setItem('cnae', userData.companyInfo.cnae);
+      sessionStorage.setItem('corporateName', userData.companyInfo.corporateName);
+      sessionStorage.setItem('tradeName', userData.companyInfo.tradeName);
+      sessionStorage.setItem('email', userData.companyInfo.email);
+      sessionStorage.setItem('responsible', userData.companyInfo.responsible);
+      sessionStorage.setItem('uniqueId', userData.companyInfo.uniqueId);
+      sessionStorage.setItem('_id', userData.companyInfo._id);
+      sessionStorage.setItem('userId', userData.userId);
+    }
   }
 
   setErrorMessage = (errorMessage: string) => {

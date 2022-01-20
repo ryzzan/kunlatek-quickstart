@@ -31,7 +31,7 @@ export interface SelectObjectInterface {
   styleUrls: ['./permission-group-form.component.scss']
 }) 
 export class PermissionGroupFormComponent implements OnInit {
-    usersSelectObject: Array <SelectObjectInterface> = [];
+    // usersSelectObject: Array <SelectObjectInterface> = [];
     moduleSelectObject: Array <SelectObjectInterface> = [];
     permissionsSelectObject: Array <SelectObjectInterface> = [];
     permissionGroupFormId: string;
@@ -49,12 +49,12 @@ export class PermissionGroupFormComponent implements OnInit {
         
         this.isAddModule = !this.permissionGroupFormId;
         
-        this._permissionGroupFormService.usersSelectObjectGetAll().then((array: any) => {
-            for (let index = 0; index < array.length; index++) {
-                const object = array[index];
-                this.usersSelectObject.push({label: object['name'], value: object['_id']});
-            }
-        });
+        // this._permissionGroupFormService.usersSelectObjectGetAll().then((array: any) => {
+        //     for (let index = 0; index < array.length; index++) {
+        //         const object = array[index];
+        //         this.usersSelectObject.push({label: object['name'], value: object['_id']});
+        //     }
+        // });
         
         this.permissionGroupFormForm = this._formBuilder.group({
             name: [{
@@ -69,20 +69,18 @@ export class PermissionGroupFormComponent implements OnInit {
                 },
                 []
             ],
-            users: [null, []],
+            // users: [null, []],
             modulesPermissionGroups: this._formBuilder.array([]),
         });
     }
     ngOnInit(): void {
         this._permissionGroupFormService.moduleSelectObjectGetAll().then((array: any) => {
-            console.log(array);
             for (let index = 0; index < array.length; index++) {
                 const object = array[index];
                 this.moduleSelectObject.push({label: object['name'], value: object['_id']});
             }
 
             this.moduleSelectObject.forEach(element => {
-                console.log(element);
                 this.modulesPermissionGroups.push(this._formBuilder.group({
                     module: [{value: element.value, disabled: true},[]],
                     permissions: [null, []],

@@ -58,7 +58,9 @@ export class PermissionGroupTableComponent implements OnInit {
   ngOnInit(): void {}
   removeConfirmationDialogOpenDialog = () => {
     const removeConfirmationDialogDialogRef = this._dialog.open(RemoveConfirmationDialogComponent, {})
-  };permissionGroupTableSubmit() {
+  };
+  
+  permissionGroupTableSubmit() {
     this._permissionGroupTableService.find(this.permissionGroupTableForm.value).then((res) => {
       this.isLoading = false;
     }).catch((err) => {

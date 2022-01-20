@@ -9,6 +9,7 @@ export const environment = {
     measurementId: 'G-V8W65TSX41',
   },
   projectId: '619e49311702d1b58ecc9eb5',
+  projectSecret: '619e49311702d1b58ecc9eb5',
   baseUrl: 'https://fundamento-api-kcu5nl2bea-uc.a.run.app',
-  production: true
+  production: true,
 };

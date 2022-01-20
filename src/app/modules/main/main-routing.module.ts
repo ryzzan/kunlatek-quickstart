@@ -10,9 +10,16 @@ import {
 } from './main.component';
 
 const routes: Routes = [{
+    path: '',
+    redirectTo: 'dashboard'
+  }, {
   path: '',
   component: MainComponent,
   children: [
+    {
+      path: 'dashboard',
+      loadChildren: () => import('../dashboard/dashboard.module').then(m => m.DashboardModule)
+    },
     {
       path: 'permission',
       loadChildren: () => import('../permission-group/permission-group.module').then(m => m.PermissionGroupModule)
@@ -25,7 +32,7 @@ const routes: Routes = [{
 },
 {
   path: '**',
-  redirectTo: ''
+  redirectTo: 'dashboard'
 }];
 
 @NgModule({

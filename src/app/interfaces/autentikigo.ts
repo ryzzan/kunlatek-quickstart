@@ -1,5 +1,5 @@
 export interface UserInterface {
-  personInfo: {
+  personInfo?: {
     birthday: string;
     country: string;
     gender: string;
@@ -8,5 +8,15 @@ export interface UserInterface {
     uniqueId: string;
     _id: string;
   };
+  companyInfo?: {
+    birthday: string;
+    cnae: any;
+    corporateName: string;
+    tradeName: string;
+    email: string;
+    responsible: string;
+    uniqueId: string;
+    _id: string;
+  }
   userId: string;
 }

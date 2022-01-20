@@ -99,6 +99,15 @@ export class PersonFormComponent implements OnInit {
   ngOnInit(): void {}
 
   uniqueIdCheck = () => {
+    
+  }
+
+  smsCodeCheck = () => {
+    
+  }
+  
+  personFormSubmit() {
+    // const merged = {...this.mainDataForm.value, ...this.mobileForm.value};
     const timestamp = this.addHours(new Date(this.mainDataForm.value.birthday), 5);
     this.mainDataForm.value.birthday = new Date(timestamp);
     
@@ -108,33 +117,6 @@ export class PersonFormComponent implements OnInit {
     }).catch((err) => {
       this.isLoading = false;
       
-      if (err.error.error.message) {
-        switch (err.error.error.message) {
-          case 'jwt expired':
-            this.setErrorMessage(err.error.error.message);
-            this.router.navigate(['/login']);
-            break;
-        
-          default:
-            this.setErrorMessage(err.error.error.message);
-            break;
-        }
-      }
-    })
-  }
-
-  smsCodeCheck = () => {
-    
-  }
-  
-  personFormSubmit() {
-    // const merged = {...this.mainDataForm.value, ...this.mobileForm.value};
-    this._personFormService
-    .save(this.mainDataForm.value).then((res) => {
-      this.isLoading = false;
-    }).catch((err) => {
-      this.isLoading = false;
-
       if (err.error.error.message) {
         switch (err.error.error.message) {
           case 'jwt expired':
