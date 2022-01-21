@@ -5,13 +5,12 @@ import {
 import {
   MatDialog
 } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { SocialAuthService } from 'angularx-social-login';
 import { AuthService } from 'src/app/components/login/auth.service';
 import {
   LogoutConfirmationDialogComponent
 } from 'src/app/components/logout-confirmation-dialog/logout-confirmation-dialog.component';
+import { MyErrorHandler } from 'src/app/utils/error-handler';
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
@@ -41,7 +40,7 @@ import {
   constructor(
     private logoutDialog: MatDialog,
     private router: Router,
-    private _snackbar: MatSnackBar,
+    private _errorHandler: MyErrorHandler,
     private _auth: AuthService
   ) {
     if (this.userData) {
@@ -69,10 +68,8 @@ import {
     .then(res => {
       this.router.navigate(['/']);
     })
-    .catch(error => {
-      this._snackbar.open(error, undefined, {
-        duration: 4 * 1000,
-      });
+    .catch(err => {
+      this._errorHandler.apiErrorMessage(err.error.error.message);
     })
   };
 }

@@ -3,8 +3,6 @@ import {
 } from '@angular/core';
 import { AuthService } from './auth.service';
 
-import { MatSnackBar } from '@angular/material/snack-bar';
-
 import { MyErrorHandler } from '../../utils/error-handler';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
@@ -25,7 +23,6 @@ export class LoginComponent {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private _snackbar: MatSnackBar,
     private _auth: AuthService,
     private _errorHandler: MyErrorHandler,
   ) {}
@@ -55,7 +52,7 @@ export class LoginComponent {
               break;
           
             default:
-              this.setErrorMessage(err.error.error.message);
+              this._errorHandler.apiErrorMessage(err.error.error.message);
               break;
           }
         }
@@ -94,12 +91,5 @@ export class LoginComponent {
       sessionStorage.setItem('_id', userData.companyInfo._id);
       sessionStorage.setItem('userId', userData.userId);
     }
-  }
-
-  setErrorMessage = (errorMessage: string) => {
-    const message = this._errorHandler.apiErrorMessage(errorMessage);
-    this._snackbar.open(message, undefined, {
-      duration: 4 * 1000,
-    });
   }
 }

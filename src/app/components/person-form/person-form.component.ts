@@ -10,9 +10,6 @@ import {
   ActivatedRoute, Router
 } from '@angular/router';
 import {
-  MatSnackBar
-} from '@angular/material/snack-bar';
-import {
   PersonFormService
 } from './person-form.service';
 import {
@@ -47,7 +44,6 @@ export class PersonFormComponent implements OnInit {
     private _formBuilder: FormBuilder, 
     private _activatedRoute: ActivatedRoute, 
     private _personFormService: PersonFormService, 
-    private _snackbar: MatSnackBar, 
     private _errorHandler: MyErrorHandler
   ) {
     this.personFormId = this._activatedRoute.snapshot.params['id'];
@@ -120,23 +116,16 @@ export class PersonFormComponent implements OnInit {
       if (err.error.error.message) {
         switch (err.error.error.message) {
           case 'jwt expired':
-            this.setErrorMessage(err.error.error.message);
+            this._errorHandler.apiErrorMessage(err.error.error.message);
             this.router.navigate(['/login']);
             break;
         
           default:
-            this.setErrorMessage(err.error.error.message);
+            this._errorHandler.apiErrorMessage(err.error.error.message);
             break;
         }
       }
     })
-  }
-
-  setErrorMessage = (errorMessage: string) => {
-    const message = this._errorHandler.apiErrorMessage(errorMessage);
-    this._snackbar.open(message, undefined, {
-      duration: 4 * 1000,
-    });
   }
 
   addHours = (date: Date, hours: number) => {

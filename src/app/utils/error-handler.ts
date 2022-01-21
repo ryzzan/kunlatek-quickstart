@@ -1,3 +1,5 @@
+import { MatSnackBar as _snackbar } from "@angular/material/snack-bar";
+
 export class MyErrorHandler {
     validatorError = (error: any): string => {
         if (error?.required) return 'Campo obrigatório';
@@ -10,19 +12,22 @@ export class MyErrorHandler {
     apiErrorMessage = (errorMessage: string) => {
         switch (errorMessage) {
             case 'Error: Incorrect password':
-                return 'Senha incorreta.'
-                break;
+                return this.sendErrorMessage('Senha incorreta.');
+                
             case 'Error: User not found':
-                return 'Usuário não encontrado.'
-                break;
-
+                return this.sendErrorMessage('Usuário não encontrado.');
+                
             case 'Project does not have authorization':
-                return 'Sem autorização para este aplicativo.'
-                break;
-        
+                return this.sendErrorMessage('Sem autorização para este aplicativo.');
+                
             default:
-                return errorMessage;
-                break;
+                return this.sendErrorMessage(errorMessage);
         }
+    }
+
+    sendErrorMessage = (errorMessage: string) => {
+        _snackbar.prototype.open(errorMessage, undefined, {
+            duration: 4 * 1000,
+        });
     }
 }

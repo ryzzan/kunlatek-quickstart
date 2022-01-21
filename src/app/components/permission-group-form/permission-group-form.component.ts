@@ -13,9 +13,6 @@ import {
   ActivatedRoute
 } from '@angular/router';
 import {
-  MatSnackBar
-} from '@angular/material/snack-bar';
-import {
   PermissionGroupFormService
 } from './permission-group-form.service';
 import {
@@ -42,7 +39,6 @@ export class PermissionGroupFormComponent implements OnInit {
         private _formBuilder: FormBuilder, 
         private _activatedRoute: ActivatedRoute, 
         private _permissionGroupFormService: PermissionGroupFormService, 
-        private _snackbar: MatSnackBar, 
         private _errorHandler: MyErrorHandler
     ) {
         this.permissionGroupFormId = this._activatedRoute.snapshot.params['id'];
@@ -108,10 +104,7 @@ export class PermissionGroupFormComponent implements OnInit {
             this.isLoading = false;
         }).catch((err) => {
             this.isLoading = false;
-            const message = this._errorHandler.apiErrorMessage(err.error.error.message);
-            this._snackbar.open(message, undefined, {
-                duration: 4 * 1000,
-            });
+            this._errorHandler.apiErrorMessage(err.error.error.message);
         })
     }
 }

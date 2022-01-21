@@ -10,9 +10,6 @@ import {
   ActivatedRoute
 } from '@angular/router';
 import {
-  MatSnackBar
-} from '@angular/material/snack-bar';
-import {
   InvitationFormService
 } from './invitation-form.service';
 import {
@@ -39,7 +36,12 @@ export interface SelectObjectInterface {
   isAddModule: boolean;
   invitationFormForm: FormGroup;
   isLoading = false;
-  constructor(private _formBuilder: FormBuilder, private _activatedRoute: ActivatedRoute, private _invitationFormService: InvitationFormService, private _snackbar: MatSnackBar, private _errorHandler: MyErrorHandler) {
+  constructor(
+    private _formBuilder: FormBuilder, 
+    private _activatedRoute: ActivatedRoute, 
+    private _invitationFormService: InvitationFormService, 
+    private _errorHandler: MyErrorHandler
+  ) {
     this.invitationFormId = this._activatedRoute.snapshot.params['id'];
     this.isAddModule = !this.invitationFormId;
     this._invitationFormService.permissionGroupsSelectObjectGetAll().then((array: any) => {
@@ -74,10 +76,7 @@ export interface SelectObjectInterface {
       this.isLoading = false;
     }).catch((err) => {
       this.isLoading = false;
-      const message = this._errorHandler.apiErrorMessage(err.error.error.message);
-      this._snackbar.open(message, undefined, {
-        duration: 4 * 1000,
-      });
+      this._errorHandler.apiErrorMessage(err.error.error.message);
     })
   }
 }

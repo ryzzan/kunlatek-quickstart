@@ -19,9 +19,7 @@ import {
 import {
   InvitationTableService
 } from './invitation-table.service';
-import {
-  MatSnackBar
-} from '@angular/material/snack-bar';
+
 @Component({
   selector: 'app-invitation-table',
   templateUrl: './invitation-table.component.html',
@@ -38,7 +36,6 @@ export class InvitationTableComponent implements OnInit {
         private _errorHandler: MyErrorHandler, 
         private _dialog: MatDialog, 
         private _invitationTableService: InvitationTableService, 
-        private _snackbar: MatSnackBar
     ) {
         this.invitationTableForm = this._formBuilder.group({
         email: [null, []],
@@ -50,9 +47,7 @@ export class InvitationTableComponent implements OnInit {
       this.isLoading = false;
     }).catch(err => {
       this.isLoading = false;
-      const message = this._errorHandler.apiErrorMessage(err.error.error.message);
-      
-      this.setErrorMessage(message);
+      this._errorHandler.apiErrorMessage(err.error.error.message);
     })
   }
 
@@ -65,18 +60,7 @@ export class InvitationTableComponent implements OnInit {
       this.isLoading = false;
     }).catch((err) => {
       this.isLoading = false;
-      const message = this._errorHandler.apiErrorMessage(err.error.error.message);
-
-      this.setErrorMessage(message);
+      this._errorHandler.apiErrorMessage(err.error.error.message);
     })
-  }
-
-
-
-  setErrorMessage = (errorMessage: string) => {
-    const message = this._errorHandler.apiErrorMessage(errorMessage);
-    this._snackbar.open(message, undefined, {
-      duration: 4 * 1000,
-    });
   }
 }

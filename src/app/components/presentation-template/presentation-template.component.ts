@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthService, SocialUser } from 'angularx-social-login';
+import { MyErrorHandler } from 'src/app/utils/error-handler';
 
 @Component({
   selector: 'app-presentation-template',
@@ -15,7 +15,7 @@ export class PresentationTemplateComponent implements OnInit {
   constructor(
     private authService: SocialAuthService, 
     private router: Router,
-    private _snackbar: MatSnackBar
+    private _errorHandler: MyErrorHandler
   ) { }
 
   ngOnInit(): void {
@@ -54,10 +54,8 @@ export class PresentationTemplateComponent implements OnInit {
 
       });
     })
-    .catch(error => {
-      this._snackbar.open(error, undefined, {
-        duration: 4 * 1000,
-      });
+    .catch(err => {
+      this._errorHandler.apiErrorMessage(err.error.error.message);
     })
   }
 
