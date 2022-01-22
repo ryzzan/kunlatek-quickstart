@@ -15,6 +15,7 @@ import {
 import {
   MyErrorHandler
 } from '../../utils/error-handler';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-company-form',
   templateUrl: './company-form.component.html',
@@ -32,7 +33,8 @@ export class CompanyFormComponent implements OnInit {
     private _formBuilder: FormBuilder, 
     private _activatedRoute: ActivatedRoute, 
     private _companyFormService: CompanyFormService, 
-    private _errorHandler: MyErrorHandler
+    private _errorHandler: MyErrorHandler,
+    private _snackbar: MatSnackBar
 ) {
     this.companyFormId = this._activatedRoute.snapshot.params['id'];
     this.isAddModule = !this.companyFormId;
@@ -102,14 +104,15 @@ export class CompanyFormComponent implements OnInit {
       this.isLoading = false;
 
       if (err.error.error.message) {
+        const message = this._errorHandler.apiErrorMessage(err.error.error.message);
         switch (err.error.error.message) {
           case 'jwt expired':
-            this._errorHandler.apiErrorMessage(err.error.error.message);
+            this.sendErrorMessage(message);
             this.router.navigate(['/login']);
             break;
         
           default:
-            this._errorHandler.apiErrorMessage(err.error.error.message);
+            this.sendErrorMessage(message);
             break;
         }
       }
@@ -119,5 +122,11 @@ export class CompanyFormComponent implements OnInit {
   addHours = (date: Date, hours: number) => {
     const timestamp = date.setHours(date.getHours()+hours);
     return timestamp;
+  }
+
+  sendErrorMessage = (errorMessage: string) => {
+    this._snackbar.open(errorMessage, undefined, {
+        duration: 4 * 1000,
+    });
   }
 }

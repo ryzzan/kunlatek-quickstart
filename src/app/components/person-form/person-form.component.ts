@@ -15,6 +15,7 @@ import {
 import {
   MyErrorHandler
 } from '../../utils/error-handler';
+import { MatSnackBar } from '@angular/material/snack-bar';
 export interface SelectObjectInterface {
   label ? : string;
   value ? : string;
@@ -44,7 +45,8 @@ export class PersonFormComponent implements OnInit {
     private _formBuilder: FormBuilder, 
     private _activatedRoute: ActivatedRoute, 
     private _personFormService: PersonFormService, 
-    private _errorHandler: MyErrorHandler
+    private _errorHandler: MyErrorHandler,
+    private _snackbar: MatSnackBar,
   ) {
     this.personFormId = this._activatedRoute.snapshot.params['id'];
     this.isAddModule = !this.personFormId;
@@ -114,14 +116,17 @@ export class PersonFormComponent implements OnInit {
       this.isLoading = false;
       
       if (err.error.error.message) {
+        const message = err.error.error.message;
         switch (err.error.error.message) {
           case 'jwt expired':
             this._errorHandler.apiErrorMessage(err.error.error.message);
+            this.sendErrorMessage(message);
             this.router.navigate(['/login']);
             break;
         
           default:
             this._errorHandler.apiErrorMessage(err.error.error.message);
+            this.sendErrorMessage(message);
             break;
         }
       }
@@ -131,5 +136,11 @@ export class PersonFormComponent implements OnInit {
   addHours = (date: Date, hours: number) => {
     const timestamp = date.setHours(date.getHours()+hours);
     return timestamp;
+  }
+
+  sendErrorMessage = (errorMessage: string) => {
+    this._snackbar.open(errorMessage, undefined, {
+        duration: 4 * 1000,
+    });
   }
 }

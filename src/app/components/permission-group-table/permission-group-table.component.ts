@@ -18,6 +18,7 @@ import {
 import {
   PermissionGroupTableService
 } from './permission-group-table.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-permission-group-table',
@@ -34,6 +35,7 @@ export class PermissionGroupTableComponent implements OnInit {
     private _errorHandler: MyErrorHandler, 
     private _dialog: MatDialog, 
     private _permissionGroupTableService: PermissionGroupTableService,
+    private _snackbar: MatSnackBar,
   ) {
     this.permissionGroupTableForm = this._formBuilder.group({
       searchInput: [null, []],
@@ -43,7 +45,8 @@ export class PermissionGroupTableComponent implements OnInit {
       this.isLoading = false;
     }).catch(err => {
       this.isLoading = false;
-      this._errorHandler.apiErrorMessage(err.error.error.message);
+      const message = this._errorHandler.apiErrorMessage(err.error.error.message);
+      this.sendErrorMessage(message);
     })
   }
   ngOnInit(): void {}
@@ -56,7 +59,14 @@ export class PermissionGroupTableComponent implements OnInit {
       this.isLoading = false;
     }).catch((err) => {
       this.isLoading = false;
-      this._errorHandler.apiErrorMessage(err.error.error.message);
+      const message = this._errorHandler.apiErrorMessage(err.error.error.message);
+      this.sendErrorMessage(message);
     })
+  }
+
+  sendErrorMessage = (errorMessage: string) => {
+    this._snackbar.open(errorMessage, undefined, {
+        duration: 4 * 1000,
+    });
   }
 }

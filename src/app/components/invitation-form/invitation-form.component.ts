@@ -15,6 +15,7 @@ import {
 import {
   MyErrorHandler
 } from '../../utils/error-handler';
+import { MatSnackBar } from '@angular/material/snack-bar';
 export interface SelectObjectInterface {
   label?: string;
   value?: string;
@@ -32,18 +33,33 @@ export interface SelectObjectInterface {
     "value": "company"
   }];
   permissionGroupsSelectObject: Array<SelectObjectInterface> = [];
-  invitationFormId: string;
-  isAddModule: boolean;
+  invitationFormId: string = '';
+  isAddModule: boolean = true;
   invitationFormForm: FormGroup;
   isLoading = false;
   constructor(
     private _formBuilder: FormBuilder, 
     private _activatedRoute: ActivatedRoute, 
     private _invitationFormService: InvitationFormService, 
-    private _errorHandler: MyErrorHandler
+    private _errorHandler: MyErrorHandler,
+    private _snackbar: MatSnackBar,
   ) {
-    this.invitationFormId = this._activatedRoute.snapshot.params['id'];
-    this.isAddModule = !this.invitationFormId;
+    this._activatedRoute.params.subscribe(routeParams => {
+      this.invitationFormId = routeParams['id'];
+      this.isAddModule = !this.invitationFormId;
+  
+      if (this.invitationFormId) {
+          this._invitationFormService.find(this.invitationFormId)
+          .then(res => {
+              if (res) this.invitationFormForm.patchValue(res);
+          })
+          .catch(err => {
+              const message = this._errorHandler.apiErrorMessage(err.error.error.message);
+              this.sendErrorMessage(message);
+          })
+      }
+    })
+    
     this._invitationFormService.permissionGroupsSelectObjectGetAll().then((array: any) => {
       for (let index = 0; index < array.length; index++) {
         const object = array[index];
@@ -76,7 +92,14 @@ export interface SelectObjectInterface {
       this.isLoading = false;
     }).catch((err) => {
       this.isLoading = false;
-      this._errorHandler.apiErrorMessage(err.error.error.message);
+      const message = this._errorHandler.apiErrorMessage(err.error.error.message);
+      this.sendErrorMessage(message);
     })
+  }
+
+  sendErrorMessage = (errorMessage: string) => {
+    this._snackbar.open(errorMessage, undefined, {
+        duration: 4 * 1000,
+    });
   }
 }

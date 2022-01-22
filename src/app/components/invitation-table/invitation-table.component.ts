@@ -19,6 +19,7 @@ import {
 import {
   InvitationTableService
 } from './invitation-table.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-invitation-table',
@@ -36,6 +37,7 @@ export class InvitationTableComponent implements OnInit {
         private _errorHandler: MyErrorHandler, 
         private _dialog: MatDialog, 
         private _invitationTableService: InvitationTableService, 
+        private _snackbar: MatSnackBar
     ) {
         this.invitationTableForm = this._formBuilder.group({
         email: [null, []],
@@ -47,7 +49,8 @@ export class InvitationTableComponent implements OnInit {
       this.isLoading = false;
     }).catch(err => {
       this.isLoading = false;
-      this._errorHandler.apiErrorMessage(err.error.error.message);
+      const message = this._errorHandler.apiErrorMessage(err.error.error.message);
+      this.sendErrorMessage(message);
     })
   }
 
@@ -60,7 +63,14 @@ export class InvitationTableComponent implements OnInit {
       this.isLoading = false;
     }).catch((err) => {
       this.isLoading = false;
-      this._errorHandler.apiErrorMessage(err.error.error.message);
+      const message = this._errorHandler.apiErrorMessage(err.error.error.message);
+      this.sendErrorMessage(message);
     })
+  }
+
+  sendErrorMessage = (errorMessage: string) => {
+    this._snackbar.open(errorMessage, undefined, {
+        duration: 4 * 1000,
+    });
   }
 }

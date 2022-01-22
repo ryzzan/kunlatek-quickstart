@@ -5,6 +5,7 @@ import {
 import {
   MatDialog
 } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/components/login/auth.service';
 import {
@@ -41,7 +42,8 @@ import { MyErrorHandler } from 'src/app/utils/error-handler';
     private logoutDialog: MatDialog,
     private router: Router,
     private _errorHandler: MyErrorHandler,
-    private _auth: AuthService
+    private _auth: AuthService,
+    private _snackbar: MatSnackBar,
   ) {
     if (this.userData) {
       this.userDataObject = JSON.parse(this.userData);
@@ -69,7 +71,16 @@ import { MyErrorHandler } from 'src/app/utils/error-handler';
       this.router.navigate(['/']);
     })
     .catch(err => {
-      this._errorHandler.apiErrorMessage(err.error.error.message);
+      const message = this._errorHandler.apiErrorMessage(err.error.error.message);
+      this.sendErrorMessage(message);
     })
   };
+
+
+
+  sendErrorMessage = (errorMessage: string) => {
+    this._snackbar.open(errorMessage, undefined, {
+        duration: 4 * 1000,
+    });
+  }
 }

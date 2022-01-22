@@ -8,6 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 
 import { UserInterface } from '../../interfaces/autentikigo';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
@@ -25,6 +26,7 @@ export class LoginComponent {
     private route: ActivatedRoute,
     private _auth: AuthService,
     private _errorHandler: MyErrorHandler,
+    private _snackbar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -52,7 +54,8 @@ export class LoginComponent {
               break;
           
             default:
-              this._errorHandler.apiErrorMessage(err.error.error.message);
+              const message = this._errorHandler.apiErrorMessage(err.error.error.message);
+              this.sendErrorMessage(message);
               break;
           }
         }
@@ -91,5 +94,11 @@ export class LoginComponent {
       sessionStorage.setItem('_id', userData.companyInfo._id);
       sessionStorage.setItem('userId', userData.userId);
     }
+  }
+
+  sendErrorMessage = (errorMessage: string) => {
+    this._snackbar.open(errorMessage, undefined, {
+        duration: 4 * 1000,
+    });
   }
 }

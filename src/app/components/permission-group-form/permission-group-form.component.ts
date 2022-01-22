@@ -18,6 +18,7 @@ import {
 import {
   MyErrorHandler
 } from '../../utils/error-handler';
+import { MatSnackBar } from '@angular/material/snack-bar';
 export interface SelectObjectInterface {
   label ? : string;
   value ? : string;
@@ -31,19 +32,32 @@ export class PermissionGroupFormComponent implements OnInit {
     // usersSelectObject: Array <SelectObjectInterface> = [];
     moduleSelectObject: Array <SelectObjectInterface> = [];
     permissionsSelectObject: Array <SelectObjectInterface> = [];
-    permissionGroupFormId: string;
-    isAddModule: boolean;
+    permissionGroupFormId: string = '';
+    isAddModule: boolean = true;
     permissionGroupFormForm: FormGroup;
     isLoading = false;
     constructor(
         private _formBuilder: FormBuilder, 
         private _activatedRoute: ActivatedRoute, 
         private _permissionGroupFormService: PermissionGroupFormService, 
-        private _errorHandler: MyErrorHandler
+        private _errorHandler: MyErrorHandler,
+        private _snackbar: MatSnackBar
     ) {
-        this.permissionGroupFormId = this._activatedRoute.snapshot.params['id'];
+        this._activatedRoute.params.subscribe(routeParams => {
+            this.permissionGroupFormId = routeParams['id'];
+            this.isAddModule = !this.permissionGroupFormId;
         
-        this.isAddModule = !this.permissionGroupFormId;
+            if (this.permissionGroupFormId) {
+                this._permissionGroupFormService.find(this.permissionGroupFormId)
+                .then(res => {
+                    if (res) this.permissionGroupFormForm.patchValue(res);
+                })
+                .catch(err => {
+                    const message = this._errorHandler.apiErrorMessage(err.error.error.message);
+                    this.sendErrorMessage(message);
+                })
+            }
+          })
         
         // this._permissionGroupFormService.usersSelectObjectGetAll().then((array: any) => {
         //     for (let index = 0; index < array.length; index++) {
@@ -104,7 +118,14 @@ export class PermissionGroupFormComponent implements OnInit {
             this.isLoading = false;
         }).catch((err) => {
             this.isLoading = false;
-            this._errorHandler.apiErrorMessage(err.error.error.message);
+            const message = this._errorHandler.apiErrorMessage(err.error.error.message);
+            this.sendErrorMessage(message);
         })
+    }
+
+    sendErrorMessage = (errorMessage: string) => {
+        this._snackbar.open(errorMessage, undefined, {
+            duration: 4 * 1000,
+        });
     }
 }
