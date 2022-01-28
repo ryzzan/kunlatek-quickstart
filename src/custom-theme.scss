@@ -1,0 +1,110 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$dark-primary-text-main: rgba(#000000, 1);
+$light-primary-text-main: #ffffff;
+
+$dark-primary-text-danger: rgba(#6a1f1a, 0.87);
+$light-primary-text-danger: #f6d9d7;
+
+$dark-primary-text-alert: rgba(#744d14, 0.87);
+$light-primary-text-alert: #ffffff;
+
+$knltk-block: rgba(#ffffff, 1);
+$light-primary-text-block: #ffffff;
+
+$mat-knltk-main: (
+  100: #e6e4e4,
+  200: #bfbcbc,
+  300: #807979,
+  400: #807979,
+  500: #807979,
+  600: #5a5555,
+  700: #403d3d,
+  contrast: (
+    100: $dark-primary-text-main,
+    200: $dark-primary-text-main,
+    300: $dark-primary-text-main,
+    400: $dark-primary-text-main,
+    500: $light-primary-text-main,
+    600: $light-primary-text-main,
+    700: $light-primary-text-main,
+  )
+);
+
+$mat-knltk-danger: (
+  100: #f6d9d7,
+  200: #ea9f9a,
+  300: #d43f35,
+  400: #d43f35,
+  500: #d43f35,
+  600: #942c25,
+  700: #6a1f1a,
+  contrast: (
+    100: $dark-primary-text-danger,
+    200: $dark-primary-text-danger,
+    300: $dark-primary-text-danger,
+    400: $dark-primary-text-danger,
+    500: $light-primary-text-danger,
+    600: $light-primary-text-danger,
+    700: $light-primary-text-danger,
+  )
+);
+
+$mat-knltk-alert: (
+  100: #faebd4,
+  200: #f4cd93,
+  300: #f4cd93,
+  400: #e89b28,
+  500: #e89b28,
+  600: #a26c1c,
+  700: #744d14,
+  contrast: (
+    100: $dark-primary-text-alert,
+    200: $dark-primary-text-alert,
+    300: $dark-primary-text-alert,
+    400: $dark-primary-text-alert,
+    500: $light-primary-text-alert,
+    600: $light-primary-text-alert,
+    700: $light-primary-text-alert,
+  )
+);
+
+$kunlatek-quickstart-primary: mat.define-palette($mat-knltk-main);
+$kunlatek-quickstart-accent: mat.define-palette($mat-knltk-alert, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$kunlatek-quickstart-warn: mat.define-palette($mat-knltk-danger);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$kunlatek-quickstart-theme: mat.define-light-theme((
+  color: (
+    primary: $kunlatek-quickstart-primary,
+    accent: $kunlatek-quickstart-accent,
+    warn: $kunlatek-quickstart-warn,
+  )
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($kunlatek-quickstart-theme);
+
+.mat-card:not([class*=mat-elevation-z]) {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
