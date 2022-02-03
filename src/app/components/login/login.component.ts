@@ -68,7 +68,7 @@ export class LoginComponent {
   }
 
   signInWithGoogle = () => {
-    window.location.replace(`http://localhost:3000/auth/google-signin?projectId=${environment.projectId}`);
+    window.location.replace(`https://kunlatek-quickstart-api-tftftsuywa-uc.a.run.app/auth/google-signin?projectId=${environment.projectId}`);
   }
 
   setSessionStorage = (userData: UserInterface) => {

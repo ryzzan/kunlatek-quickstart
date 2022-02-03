@@ -14,7 +14,7 @@ export const environment = {
   },
   projectId: '619e49311702d1b58ecc9eb5',
   projectSecret: '619e49311702d1b58ecc9eb5',
-  baseUrl: 'http://localhost:3000',
+  baseUrl: 'https://kunlatek-quickstart-api-tftftsuywa-uc.a.run.app',
   production: false
 };
 

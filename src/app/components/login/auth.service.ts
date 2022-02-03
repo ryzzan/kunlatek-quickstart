@@ -15,7 +15,7 @@ export enum SocialMedia {
   providedIn: 'root',
 }) 
 export class AuthService {
-  BASE_URL = 'http://localhost:3000';
+  BASE_URL = 'https://kunlatek-quickstart-api-tftftsuywa-uc.a.run.app';
   constructor(private _httpClient: HttpClient) {}
 
   setAuthenticationToken = (code: string) => {

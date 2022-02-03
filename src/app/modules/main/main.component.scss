@@ -20,6 +20,7 @@ a {
 .menu {
   border-bottom: #cacaca solid 1px;
   padding: 10px 0 10px 0;
+  background-color: #807979;
 }
 
 .menu a:hover {
@@ -28,14 +29,16 @@ a {
 
 .menu-item {
   margin: 0 10px 0 10px;
+  color: #ffffff;
 }
 
 .menu-item mat-icon {
   padding-right: 10px;
+  color: #ffffff;
 }
 
 .menu-active {
-  color: #807979;
+  color: #000000;
 }
 
 .submenu {
@@ -58,4 +61,5 @@ a {
   height: 100%;
   align-items: center;
   justify-content: center;
+  background-color: #807979;
 }

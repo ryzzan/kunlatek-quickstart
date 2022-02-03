@@ -10,7 +10,7 @@ import {
 }) 
 
 export class PermissionGroupTableService {
-  BASE_URL = 'http://localhost:3000';
+  BASE_URL = 'https://kunlatek-quickstart-api-tftftsuywa-uc.a.run.app';
   
   constructor(private _httpClient: HttpClient) {}
   

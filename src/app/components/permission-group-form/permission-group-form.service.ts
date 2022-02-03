@@ -7,7 +7,7 @@ import {
 @Injectable({
   providedIn: 'root',
 }) export class PermissionGroupFormService {
-  BASE_URL = 'http://localhost:3000';
+  BASE_URL = 'https://kunlatek-quickstart-api-tftftsuywa-uc.a.run.app';
   constructor(private _httpClient: HttpClient) {}
   // usersSelectObjectGetAll() {
   //   return this._httpClient.get(`${this.BASE_URL}/users`, {
