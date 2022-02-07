@@ -65,4 +65,12 @@ import {
       }
     }).toPromise();
   };
+  
+  refreshToken() {
+    return this._httpClient.get(`${this.BASE_URL}/auth/refresh-token`, {
+      headers: {
+        'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+      }
+    }).toPromise();
+  };
 }

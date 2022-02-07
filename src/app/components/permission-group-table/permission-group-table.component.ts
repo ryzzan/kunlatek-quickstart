@@ -40,7 +40,9 @@ export class PermissionGroupTableComponent implements OnInit {
     this.permissionGroupTableForm = this._formBuilder.group({
       searchInput: [null, []],
     });
-    this._permissionGroupTableService.getAll().then((result) => {
+    
+    this._permissionGroupTableService.getAll()
+    .then((result: any) => {
       this.permissionGroupTableDataSource = result;
       this.isLoading = false;
     }).catch(err => {
@@ -54,8 +56,9 @@ export class PermissionGroupTableComponent implements OnInit {
     const removeConfirmationDialogDialogRef = this._dialog.open(RemoveConfirmationDialogComponent, {})
   };
   
-  permissionGroupTableSubmit() {
+  permissionGroupTableSubmit() { console.log(60);
     this._permissionGroupTableService.find(this.permissionGroupTableForm.value).then((res) => {
+      console.log(res, 62);
       this.isLoading = false;
     }).catch((err) => {
       this.isLoading = false;

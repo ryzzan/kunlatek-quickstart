@@ -5,7 +5,6 @@ import { AuthService } from './auth.service';
 
 import { MyErrorHandler } from '../../utils/error-handler';
 import { ActivatedRoute, Router } from '@angular/router';
-import { environment } from 'src/environments/environment';
 
 import { UserInterface } from '../../interfaces/autentikigo';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -33,66 +32,64 @@ export class LoginComponent {
     this._auth.signOut();
 
     const params = this.route.snapshot.queryParams;
-
     if (params['token']) {
       const token = params['token'];
       
       this._auth.getUserData(token)
       .then((res: any) => {
-        if (res.userId) {
-          sessionStorage.setItem('token', token);
-          this.setSessionStorage(res);
+        if (res.statusCode === 200) {
+          this.setSessionStorage(res.data);
           this.router.navigate(['/main']);
+        }
+
+        if (res.statusCode === 601) {
+          sessionStorage.setItem('tokenToRegister', token);
+          this.router.navigate(['/signup']);
         }
       })
       .catch(err => {
         if (err.error.error.message) {
-          switch (err.error.error.message) {
-            case 'User not registered':
-              sessionStorage.setItem('tokenToRegister', token);
-              this.router.navigate(['/signup']);
-              break;
-          
-            default:
-              const message = this._errorHandler.apiErrorMessage(err.error.error.message);
-              this.sendErrorMessage(message);
-              break;
-          }
+          const message = this._errorHandler.apiErrorMessage(err.error.error.message);
+          this.sendErrorMessage(message);
         }
       });
     }
 
-    if (sessionStorage.getItem('userId')) {
+    if (sessionStorage.getItem('_id')) {
       this.router.navigate(['/main']);      
     }
   }
 
   signInWithGoogle = () => {
-    window.location.replace(`https://kunlatek-quickstart-api-tftftsuywa-uc.a.run.app/auth/google-signin?projectId=${environment.projectId}`);
+    window.location.replace(`https://kunlatek-quickstart-api-tftftsuywa-uc.a.run.app/auth/google-signin`);
   }
 
-  setSessionStorage = (userData: UserInterface) => {
-    if (userData.personInfo) {
-      sessionStorage.setItem('birthday', userData.personInfo.birthday);
-      sessionStorage.setItem('country', userData.personInfo.country);
-      sessionStorage.setItem('gender', userData.personInfo.gender);
-      sessionStorage.setItem('mother', userData.personInfo.mother);
-      sessionStorage.setItem('name', userData.personInfo.name);
-      sessionStorage.setItem('uniqueId', userData.personInfo.uniqueId);
-      sessionStorage.setItem('_id', userData.personInfo._id);
-      sessionStorage.setItem('userId', userData.userId);
+  setSessionStorage = (data: UserInterface) => {
+    sessionStorage.setItem('_id', data.userData._id);
+    sessionStorage.setItem('token', data.authToken);
+    sessionStorage.setItem('refreshToken', data.authRefreshToken);
+    sessionStorage.setItem('email', data.userData.email);
+    sessionStorage.setItem('permission', JSON.stringify(data.userData.permissionGroup));
+
+    if (data.userData.person) {
+      sessionStorage.setItem('birthday', data.userData.person.birthday);
+      sessionStorage.setItem('country', data.userData.person.country);
+      sessionStorage.setItem('gender', data.userData.person.gender);
+      sessionStorage.setItem('mother', data.userData.person.mother);
+      sessionStorage.setItem('name', data.userData.person.name);
+      sessionStorage.setItem('uniqueId', data.userData.person.uniqueId);
+      sessionStorage.setItem('personId', data.userData.person._id);
     }
 
-    if (userData.companyInfo) {
-      sessionStorage.setItem('birthday', userData.companyInfo.birthday);
-      sessionStorage.setItem('cnae', userData.companyInfo.cnae);
-      sessionStorage.setItem('corporateName', userData.companyInfo.corporateName);
-      sessionStorage.setItem('tradeName', userData.companyInfo.tradeName);
-      sessionStorage.setItem('email', userData.companyInfo.email);
-      sessionStorage.setItem('responsible', userData.companyInfo.responsible);
-      sessionStorage.setItem('uniqueId', userData.companyInfo.uniqueId);
-      sessionStorage.setItem('_id', userData.companyInfo._id);
-      sessionStorage.setItem('userId', userData.userId);
+    if (data.userData.company) {
+      sessionStorage.setItem('birthday', data.userData.company.birthday);
+      sessionStorage.setItem('cnae', data.userData.company.cnae);
+      sessionStorage.setItem('corporateName', data.userData.company.corporateName);
+      sessionStorage.setItem('tradeName', data.userData.company.tradeName);
+      sessionStorage.setItem('companyEmail', data.userData.company.email);
+      sessionStorage.setItem('responsible', data.userData.company.responsible);
+      sessionStorage.setItem('uniqueId', data.userData.company.uniqueId);
+      sessionStorage.setItem('companyId', data.userData.company._id);
     }
   }
 

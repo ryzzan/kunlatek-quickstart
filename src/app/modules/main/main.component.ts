@@ -17,25 +17,15 @@ import { MyErrorHandler } from 'src/app/utils/error-handler';
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss']
 }) export class MainComponent implements OnInit {
-  userData = sessionStorage.getItem('user_data');
-  userDataObject;
   userType;
-  menu = [{
-    router: '/main/dashboard',
-    title: 'Página inicial',
-    icon: 'dashboard',
-    itens: [],
-  }, {
-    router: '/main/permission',
-    title: 'Permissões',
-    icon: 'dashboard',
-    itens: [],
-  }, {
-    router: '/main/invitation',
-    title: 'Convites',
-    icon: 'dashboard',
-    itens: [],
-  }];
+  menu = [
+    {
+      router: '/main/dashboard',
+      title: 'Página inicial',
+      icon: 'dashboard',
+      itens: [],
+    }
+  ];
   isMenuOpened = true;
   isToLogout: boolean = true;
   constructor(
@@ -45,13 +35,24 @@ import { MyErrorHandler } from 'src/app/utils/error-handler';
     private _auth: AuthService,
     private _snackbar: MatSnackBar,
   ) {
-    if (this.userData) {
-      this.userDataObject = JSON.parse(this.userData);
-      this.userType = this.userDataObject.type;
+    if (sessionStorage.getItem('permission') !== null) {
+      sessionStorage.getItem('personId') ? this.userType = 'person' : this.userType = 'company';
+      const permissionString = sessionStorage.getItem('permission');
+      let permissions;
+      if (permissionString !== null) permissions = JSON.parse(permissionString);
+      
+      permissions.permissions.forEach((permission: any) => {
+        this.menu.push({
+          router: `/main/${permission.module.route}`,
+          title: `${permission.module.name}`,
+          icon: 'dashboard',
+          itens: [],
+        })
+      });
     }
   };
   
-  ngOnInit(): void {};
+  ngOnInit(): void {};  
   
   logoutOpenDialog = (): void => {
     const logoutDialogRef = this.logoutDialog.open(LogoutConfirmationDialogComponent, {

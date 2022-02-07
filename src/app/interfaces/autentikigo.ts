@@ -1,22 +1,28 @@
 export interface UserInterface {
-  personInfo?: {
-    birthday: string;
-    country: string;
-    gender: string;
-    mother: string;
-    name: string;
-    uniqueId: string;
-    _id: string;
-  };
-  companyInfo?: {
-    birthday: string;
-    cnae: any;
-    corporateName: string;
-    tradeName: string;
+  userData: {
+    person?: {
+      birthday: string;
+      country: string;
+      gender: string;
+      mother: string;
+      name: string;
+      uniqueId: string;
+      _id: string;
+    };
+    company?: {
+      birthday: string;
+      cnae: any;
+      corporateName: string;
+      tradeName: string;
+      email: string;
+      responsible: string;
+      uniqueId: string;
+      _id: string;
+    }
     email: string;
-    responsible: string;
-    uniqueId: string;
     _id: string;
+    permissionGroup: any;
   }
-  userId: string;
+  authToken: string;
+  authRefreshToken: string;
 }

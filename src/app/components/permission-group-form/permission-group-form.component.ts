@@ -84,19 +84,19 @@ export class PermissionGroupFormComponent implements OnInit {
         });
     }
     ngOnInit(): void {
-        this._permissionGroupFormService.moduleSelectObjectGetAll().then((array: any) => {
-            for (let index = 0; index < array.length; index++) {
-                const object = array[index];
-                this.moduleSelectObject.push({label: object['name'], value: object['_id']});
-            }
+        // this._permissionGroupFormService.moduleSelectObjectGetAll().then((array: any) => {
+        //     for (let index = 0; index < array.length; index++) {
+        //         const object = array[index];
+        //         this.moduleSelectObject.push({label: object['name'], value: object['_id']});
+        //     }
 
-            this.moduleSelectObject.forEach(element => {
-                this.modulesPermissionGroups.push(this._formBuilder.group({
-                    module: [{value: element.value, disabled: true},[]],
-                    permissions: [null, []],
-                }))
-            });
-        });
+        //     this.moduleSelectObject.forEach(element => {
+        //         this.modulesPermissionGroups.push(this._formBuilder.group({
+        //             module: [{value: element.value, disabled: true},[]],
+        //             permissions: [null, []],
+        //         }))
+        //     });
+        // });
 
         this._permissionGroupFormService.permissionsSelectObjectGetAll().then((array: any) => 
         {

@@ -19,12 +19,12 @@ export class AuthService {
   constructor(private _httpClient: HttpClient) {}
 
   setAuthenticationToken = (code: string) => {
-    return this._httpClient.get(`${this.BASE_URL}/auth/token?code=${code}&secret=${environment.projectId}`)
+    return this._httpClient.get(`${this.BASE_URL}/auth/token?code=${code}`)
     .toPromise();
   }
 
   getUserData = (token: string) => {
-    return this._httpClient.get(`${this.BASE_URL}/auth/get-user`, {
+    return this._httpClient.get(`${this.BASE_URL}/auth/login`, {
       headers: {
         'authorization': `Bearer ${token}`
       }

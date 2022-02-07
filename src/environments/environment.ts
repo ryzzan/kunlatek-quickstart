@@ -12,8 +12,6 @@ export const environment = {
     messagingSenderId: '61322235717',
     measurementId: 'G-V8W65TSX41',
   },
-  projectId: '619e49311702d1b58ecc9eb5',
-  projectSecret: '619e49311702d1b58ecc9eb5',
   baseUrl: 'https://kunlatek-quickstart-api-tftftsuywa-uc.a.run.app',
   production: false
 };

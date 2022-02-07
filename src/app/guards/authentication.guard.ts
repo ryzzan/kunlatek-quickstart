@@ -1,4 +1,3 @@
-import { Location } from '@angular/common';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -6,14 +5,11 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class AuthenticationGuard {
-  constructor(
-    private router: Router,
-    private location: Location
-  ) {}
-
-  canActivate = (): boolean => {    
+  canActivate = (
+    router: Router
+  ): boolean => {    
     if (!sessionStorage.getItem('uniqueId')) {
-      this.router.navigate(['/']);
+      router.navigate(['/']);
       console.warn('You must authenticate to login!');
       return false;
     }
