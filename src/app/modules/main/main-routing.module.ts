@@ -22,15 +22,6 @@ const routes: Routes = [{
       path: 'dashboard',
       loadChildren: () => import('../dashboard/dashboard.module').then(m => m.DashboardModule)
     },
-    // {
-    //   path: 'permissions',
-    //   canActivate: [MenuGuard],
-    //   loadChildren: () => import('../permission-group/permission-group.module').then(m => m.PermissionGroupModule)
-    // },
-    // {
-    //   path: 'invitations',
-    //   loadChildren: () => import('../invitation/invitation.module').then(m => m.InvitationModule)
-    // }
   ]
 },
 {
