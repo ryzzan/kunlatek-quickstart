@@ -48,8 +48,8 @@ export class LoginComponent {
         }
       })
       .catch(err => {
-        if (err.error.error.message) {
-          const message = this._errorHandler.apiErrorMessage(err.error.error.message);
+        if (err.message) {
+          const message = this._errorHandler.apiErrorMessage(err.message);
           this.sendErrorMessage(message);
         }
       });

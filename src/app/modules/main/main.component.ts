@@ -78,7 +78,7 @@ export class MainComponent implements OnInit {
       this.router.navigate(['/']);
     })
     .catch(err => {
-      const message = this._errorHandler.apiErrorMessage(err.error.error.message);
+      const message = this._errorHandler.apiErrorMessage(err.message);
       this.sendErrorMessage(message);
     })
   };

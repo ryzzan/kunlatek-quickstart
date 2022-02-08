@@ -103,9 +103,9 @@ export class CompanyFormComponent implements OnInit {
     }).catch((err) => {
       this.isLoading = false;
 
-      if (err.error.error.message) {
-        const message = this._errorHandler.apiErrorMessage(err.error.error.message);
-        switch (err.error.error.message) {
+      if (err.message) {
+        const message = this._errorHandler.apiErrorMessage(err.message);
+        switch (err.message) {
           case 'jwt expired':
             this.sendErrorMessage(message);
             this.router.navigate(['/login']);
