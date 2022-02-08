@@ -7,6 +7,14 @@
     Kunlatek Quickstart
   </span> 
   <span class="spacer"></span>
+  <mat-form-field>
+    <mat-label>Perfil relacionado</mat-label>
+    <mat-select [(value)]="permissionIndex"  (selectionChange)="changePermissionIndex(permissionIndex)">
+      <mat-option *ngFor="let owner of permissionGroupsOwners; let i = index" [value]="i">
+        {{owner.owner.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
   <button mat-icon-button class="icon" aria-label="Perfil" [matMenuTriggerFor]="profileMenu">
     <mat-icon>account_circle</mat-icon>
   </button>

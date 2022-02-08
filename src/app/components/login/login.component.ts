@@ -69,7 +69,7 @@ export class LoginComponent {
     sessionStorage.setItem('token', data.authToken);
     sessionStorage.setItem('refreshToken', data.authRefreshToken);
     sessionStorage.setItem('email', data.userData.email);
-    sessionStorage.setItem('permission', JSON.stringify(data.userData.permissionGroup));
+    sessionStorage.setItem('permission', JSON.stringify(data.userData.permissionGroups));
 
     if (data.userData.person) {
       sessionStorage.setItem('birthday', data.userData.person.birthday);
