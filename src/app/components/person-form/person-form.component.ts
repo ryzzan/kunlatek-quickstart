@@ -110,8 +110,12 @@ export class PersonFormComponent implements OnInit {
     this.mainDataForm.value.birthday = new Date(timestamp);
     
     this._personFormService
-    .save(this.mainDataForm.value).then((res) => {
+    .save(this.mainDataForm.value).then((res: any) => {
       this.isLoading = false;
+      const message = res.message;
+      this._errorHandler.apiErrorMessage(res.message);
+      this.sendErrorMessage(message);
+      this.router.navigate(['/login']);
     }).catch((err) => {
       this.isLoading = false;
       
