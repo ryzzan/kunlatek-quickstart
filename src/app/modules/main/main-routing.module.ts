@@ -34,13 +34,12 @@ const routes: Routes = [{
   exports: [RouterModule]
 })
 export class MainRoutingModule {
-  permissionIndex =0;
   constructor (
   ) {
     let permissions;
     const permissionString = sessionStorage.getItem('permission');
     if (permissionString !== null) permissions = JSON.parse(permissionString);
-    permissions[this.permissionIndex].permissions.forEach((permission: any) => {
+    permissions[0].permissions.forEach((permission: any) => {
       let moduleName = `m.${TextTransformation.setIdToClassName(permission.module.route)}Module`;
       if (routes[1]['children']) {
         routes[1]['children'].push({

@@ -2,19 +2,7 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-export const environment = {
-  firebase: {
-    projectId: 'kunlatek-quickstart',
-    appId: '1:61322235717:web:2c454bc7bd593cc6d3f82c',
-    storageBucket: 'kunlatek-quickstart.appspot.com',
-    apiKey: 'AIzaSyCLOB3dc091tFAuj9LEsarILOBVzL-dqhQ',
-    authDomain: 'kunlatek-quickstart.firebaseapp.com',
-    messagingSenderId: '61322235717',
-    measurementId: 'G-V8W65TSX41',
-  },
-  baseUrl: 'https://kunlatek-quickstart-api-tftftsuywa-uc.a.run.app',
-  production: false
-};
+export const environment = {};
 
 /*
  * For easier debugging in development mode, you can import the following file

@@ -8,6 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { UserInterface } from '../../interfaces/autentikigo';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -61,7 +62,7 @@ export class LoginComponent {
   }
 
   signInWithGoogle = () => {
-    window.location.replace(`https://kunlatek-quickstart-api-tftftsuywa-uc.a.run.app/auth/google-signin`);
+    window.location.replace(`${environment.baseUrl}/auth/google-signin`);
   }
 
   setSessionStorage = (data: UserInterface) => {

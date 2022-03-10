@@ -4,7 +4,7 @@ import {
 import {
   Injectable
 } from '@angular/core';
-import { environment } from 'src/environments/environment.prod';
+import { environment } from 'src/environments/environment';
 
 export enum SocialMedia {
   GoogleId = 'googleId',
@@ -15,7 +15,7 @@ export enum SocialMedia {
   providedIn: 'root',
 }) 
 export class AuthService {
-  BASE_URL = 'https://kunlatek-quickstart-api-tftftsuywa-uc.a.run.app';
+  BASE_URL = environment.baseUrl;
   constructor(private _httpClient: HttpClient) {}
 
   setAuthenticationToken = (code: string) => {
