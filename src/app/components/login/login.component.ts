@@ -65,6 +65,10 @@ export class LoginComponent {
     window.location.replace(`${environment.baseUrl}/auth/google-signin`);
   }
 
+  signInWithApple = () => {
+    window.location.replace(`${environment.baseUrl}/auth/apple`);
+  }
+
   setSessionStorage = (data: UserInterface) => {
     sessionStorage.setItem('_id', data.userData._id);
     sessionStorage.setItem('token', data.authToken);
