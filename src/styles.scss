@@ -83,6 +83,14 @@ mat-tab {
   height: 0;
 }
 
+.loading {
+  z-index: 99;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: #ffffff;
+}
+
 .spacer {
   flex: 1 1 auto;
 }
