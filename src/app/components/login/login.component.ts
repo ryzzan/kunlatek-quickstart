@@ -66,7 +66,7 @@ export class LoginComponent {
   }
 
   signInWithApple = () => {
-    window.location.replace(`${environment.baseUrl}/auth/apple`);
+    window.location.replace(`${environment.baseUrl}/auth/apple-signin`);
   }
 
   setSessionStorage = (data: UserInterface) => {
