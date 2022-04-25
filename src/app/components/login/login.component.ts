@@ -33,11 +33,11 @@ export class LoginComponent {
   }
 
   signInWithGoogle = () => {
-    this.redirectTo(`"${environment.baseUrl}/auth/google-signin"`);
+    window.location.replace(`${environment.baseUrl}/auth/google-signin`);
   };
 
   signInWithApple = () => {
-    this.redirectTo(`"${environment.baseUrl}/auth/apple-signin"`);
+    window.location.replace(`${environment.baseUrl}/auth/apple-signin`);
   };
 
   setAuthentication = async () => {
@@ -107,12 +107,6 @@ export class LoginComponent {
   sendErrorMessage = (errorMessage: string) => {
     this._snackbar.open(errorMessage, undefined, {
       duration: 4 * 1000,
-    });
-  };
-
-  redirectTo(uri: string) {
-    this.router.navigateByUrl("/", { skipLocationChange: true }).then(() => {
-      this.router.navigate([uri]);
     });
   };
 }
