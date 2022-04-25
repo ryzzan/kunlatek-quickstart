@@ -33,11 +33,11 @@ export class LoginComponent {
   }
 
   signInWithGoogle = () => {
-    this.redirectTo("auth/google-signin");
+    this.redirectTo(`"${environment.baseUrl}/auth/google-signin"`);
   };
 
   signInWithApple = () => {
-    this.redirectTo("auth/apple-signin");
+    this.redirectTo(`"${environment.baseUrl}/auth/apple-signin"`);
   };
 
   setAuthentication = async () => {
