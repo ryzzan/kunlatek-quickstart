@@ -12,7 +12,11 @@
     </mat-card-subtitle>
   </mat-card-header>
   
-  <div>
+  <div *ngIf="isLoading" class="loading">
+    <mat-progress-spinner color="primary" mode="indeterminate"></mat-progress-spinner>
+  </div>
+
+  <div *ngIf="!isLoading">
     <div style="display: flex;">
       <button mat-raised-button (click)="signInWithGoogle()" style="width: 200px; margin-left: auto; margin-right: auto;">
         <img src="../../../assets/images/logos/google.svg.png" alt="Google logo" height="24px" style="margin-right: 8px;">
