@@ -27,9 +27,7 @@ mat-toolbar {
 }
 
 mat-card {
-    margin-left: 1%;
     margin-bottom: 20px;
-    width: 96%;
 }
 
 mat-form-field {
@@ -84,15 +82,21 @@ mat-tab {
 }
 
 .loading {
-  z-index: 99;
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: white;
 }
 
 .spacer {
   flex: 1 1 auto;
+}
+
+.table-container {
+  position: relative;
+  min-height: 50px;
+  max-height: 240px;
+  overflow: auto;
 }
 
 .text-centralized {
