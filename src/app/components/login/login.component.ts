@@ -20,7 +20,7 @@ export interface ParamsI {
 export class LoginComponent {
   user?: any;
   loggedIn = false;
-  load = false;
+  isLoading = true;
 
   constructor(
     private router: Router,
@@ -33,10 +33,12 @@ export class LoginComponent {
   }
 
   signInWithGoogle = () => {
+    this.isLoading = true;
     window.location.replace(`${environment.baseUrl}/auth/google-signin`);
   };
 
   signInWithApple = () => {
+    this.isLoading = true;
     window.location.replace(`${environment.baseUrl}/auth/apple-signin`);
   };
 
@@ -58,11 +60,14 @@ export class LoginComponent {
           sessionStorage.setItem("tokenToRegister", token);
           this.router.navigate(["/signup"]);
         }
+
       } catch (error: any) {
         const message = this._errorHandler.apiErrorMessage(error?.message);
         this.sendErrorMessage(message);
       }
     }
+
+    this.isLoading = false;
 
     if (sessionStorage.getItem("_id")) {
       this.router.navigate(["/main"]);
