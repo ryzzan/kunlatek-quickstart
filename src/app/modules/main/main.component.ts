@@ -12,6 +12,7 @@ import {
   LogoutConfirmationDialogComponent
 } from 'src/app/components/logout-confirmation-dialog/logout-confirmation-dialog.component';
 import { MyErrorHandler } from 'src/app/utils/error-handler';
+import { routes } from './main-routing.module';
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
@@ -54,6 +55,23 @@ export class MainComponent implements OnInit {
           icon: 'dashboard',
           itens: [],
         })
+      });
+    }
+
+    if (!sessionStorage.getItem('permission')) {
+      routes.forEach((route: any) => {
+        if (route.children) {
+          route.children.forEach((child: any) => {
+            if (child.path && child.path !== "" && child.path !== "dashboard" && (child.path?.split('/').length < 2)) {
+              this.menu.push({
+                router: `/main/${child.path}`,
+                title: child.path,
+                icon: 'dashboard',
+                itens: [],
+              })
+            }
+          });
+        }
       });
     }
   };

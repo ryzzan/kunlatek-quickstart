@@ -11,7 +11,7 @@ import {
   MainComponent
 } from './main.component';
 
-const routes: Routes = [{
+export const routes: Routes = [{
     path: '',
     redirectTo: 'dashboard'
   }, {
