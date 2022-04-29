@@ -1,4 +1,4 @@
-export class  Performace {
+export class  MyPerformace {
   debounce = (func: Function, timeout: number = 300) => {
     let timer: any;
     return (...args: any) => {
