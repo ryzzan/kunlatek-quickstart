@@ -21,8 +21,7 @@ export class MenuGuard implements CanActivate {
 
           if (key === 'module') {
             console.log(element === route.url);
-          }
-          
+          }          
         }
       }
     }
