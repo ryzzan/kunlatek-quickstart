@@ -1,5 +1,5 @@
-export class  MyPerformace {
-  debounce = (func: Function, timeout: number = 300) => {
+export class  MyPerformance {
+  static debounce = (func: Function, timeout: number = 300) => {
     let timer: any;
     return (...args: any) => {
       clearTimeout(timer);
