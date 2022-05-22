@@ -114,9 +114,7 @@
           "options": {
             "prerender": false,
             "ssr": false,
-            "browserTarget": "kunlatek-quickstart:build:production",
-            "firebaseProject": "kunlatek-quickstart",
-            "firebaseHostingSite": "kunlatek-quickstart"
+            "browserTarget": "kunlatek-quickstart:build:production"
           }
         }
       }
