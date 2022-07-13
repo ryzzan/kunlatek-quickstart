@@ -105,6 +105,7 @@ export class PersonFormComponent implements OnInit {
   }
   
   personFormSubmit() {
+    this.isLoading = true;
     // const merged = {...this.mainDataForm.value, ...this.mobileForm.value};
     const timestamp = this.addHours(new Date(this.mainDataForm.value.birthday), 5);
     this.mainDataForm.value.birthday = new Date(timestamp);
