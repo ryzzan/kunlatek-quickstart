@@ -1,3 +1,6 @@
+<div *ngIf="isLoading" class="loading">
+    <mat-progress-bar color="primary" mode="indeterminate"></mat-progress-bar>
+</div>
 <mat-card>
   <mat-card-header>
     <mat-card-title>Pessoa</mat-card-title>
@@ -38,7 +41,7 @@
                         <button mat-raised-button matStepperNext>Próximo</button>
                     </div> -->
                     <mat-card-actions>
-                        <button mat-raised-button color="primary" (click)="personFormSubmit()">
+                        <button mat-raised-button color="primary" [disabled]="mainDataForm.invalid || isLoading" (click)="personFormSubmit()">
                             <mat-icon>save</mat-icon>
                             {{isAddModule?'Criar' : 'Editar'}}
                         </button>
