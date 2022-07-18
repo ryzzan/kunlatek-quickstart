@@ -94,6 +94,7 @@ export class CompanyFormComponent implements OnInit {
   }
   
   companyFormSubmit() {
+    this.isLoading = true;
     const timestamp = this.addHours(new Date(this.mainDataForm.value.birthday), 5);
     this.mainDataForm.value.birthday = new Date(timestamp);
     
