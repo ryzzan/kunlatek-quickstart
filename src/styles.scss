@@ -13,7 +13,12 @@ body {
 }
 
 table {
-    width: 100%;
+  width: 100% !important;
+  white-space: nowrap;
+}
+
+.mat-cell, .mat-header-cell {
+  padding-right: 18px;
 }
 
 button.mat-raised-button {
@@ -87,7 +92,7 @@ mat-tab {
 }
 
 .full-width {
-  width: 100%;
+  width: calc(100% - 32px);
 }
 
 .loading {
